@@ -1,47 +1,66 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
 <head>
-    <meta charset="utf-8">
-    <title>MoveFood</title>
-    <link rel="stylesheet" href="css/fluid_grid.css" type="text/css" />
-    <link rel="stylesheet" href="css/style.css" type="text/css" />
-    <script type="text/javascript" src="js/jquery-1.5.min.js"></script>
-    <script type="text/javascript" src="js/movefood.js"></script>
-    <script type="text/javascript" src="js/index.js"></script>
+  <meta charset="utf-8">
+  <title>MoveFood</title>
+  <link rel="stylesheet" href="css/fluid_grid.css" type="text/css" />
+  <link rel="stylesheet" href="css/boilerplate.css" type="text/css" />
+  <link rel="stylesheet" href="css/style.css" type="text/css" />
+  <script type="text/javascript" src="js/jquery-1.5.min.js"></script>
+  <script type="text/javascript" src="js/movefood.js"></script>
+  <script type="text/javascript" src="js/index.js"></script>
 </head>
 <body>
 <div id="container" class="section container_12">
     <div id="header">
-        <div class="logo grid_8 alpha"><h1>MoveFood</h1></div>
-        <div class="grid_2 omega"><a href="#" onClick="return moveFood.showLogin()">login</a></div>
-        <div id="content" class="grid_12">
-            <div id="userdetails">
-                <div class="grid_1"><img id="userimage" src="#"/></div>
-                <div class="grid_11">
-                    <div id="username">Joe Washel</div>
-                    <div id="userlocation">Georgetown, WA</div>
-                    <div id="userbio">I love delivering goods for those in need.</div>
+        <div class="logo grid_6 alpha"><h1><a href="index.html">MoveFood</a></h1></div>
+        <div class="grid_6 omega">
+          <ul class="menu">
+            <li id="loginlink"><a href="#" class="login" onClick="return moveFood.showLogin()">Login</a></li>
+            <li id="welcomeuser"><a href="#" class="login">Welcome ...</a></li>
+            <li id="createaccount"><a href="register.html" class="login">Create Account</a></li>
+            <li id="logoutlink"><a href="#" onclick="return moveFood.logout()" class="login">logout</a></li>
+          </ul>
+        </div>
+        <div id="page-title" class="grid_12"><h2>Create an Account</h2></div>
+        </div>
+        <div id="content" class="grid_12 alpha">
+            <div id="userdetails"  class="grid_12 alpha">
+                <div class="grid_2"><div class="userimage"><img src="images/user_placeholder.png"/></div></div>
+                <div class="grid_4">
+                  <div id="username">Joe Washel</div>
+                  <div id="userlocation">Georgetown, WA</div>
+                  <div id="userbio">I love delivering goods for those in need.</div>
                 </div>
             </div>
-            <div id="actions">
-                <div id="haveaction" class="grid_6"><a href="add-item.html">I have</a></div>
-                <div id="helpaction" class="grid_6"><a href="food-list.html">I can help</a></div>
-            </div>
-            <div id="lists">
-                <div id="items" class="grid_6">
-                    <div>Items I have listed</div>
-                    <ul id="itemslist">
+
+                <div id="actions" class="user-buttons grid_12 alpha">
+                  <div id="haveaction" class="grid_3 button"><a href="add-item.html" onclick="return moveFood.requireAuthentication()">I have</a></div>
+                  <div id="helpaction" class="grid_3 button"><a href="food-list.html">I can help</a></div>
+                </div>
+                
+            <div id="lists" class="grid_12 alpha omega">
+                <div id="items" class="grid_5">
+                    <h3>Items I have listed</h3>
+                    <ul id="itemslist"  class="list">
+                      <li><a href="#">ItemName</a> <a href="#" id="food-item-3"  class="update-status">Remove</a></li>
+                      <li><a href="#">ItemName</a> <a href="#" id="food-item-4"  class="update-status">Remove</a></li>
                     </ul>
                 </div>
-                <div id="claims" class="grid_6">
-                    <div>Items I have claimed</div>
-                    <ul id="claimslist">
+                <div id="claims" class="grid_5">
+                    <h3>Items I have claimed</h3>
+                    <ul id="claimslist"  class="list">
+                      <li><a href="#">ItemName</a> <a href="#" id="food-item-5" class="update-status">Remove</a></li>
+                      <li><a href="#">ItemName</a> <a href="#" id="food-item-7"  class="update-status">Remove</a></li>
                     </ul>
                 </div>
             </div>
         </div>
-        <div id="footer">
-
+        <div id="footer" class="grid_12 alpha omega">
+          <ul class="menu">
+            <li><a href="https://github.com/chachasikes/MoveFood">Code on Github</a></li>
+            <li>Created at <a href="#">Random Hacks of Kindness #3</a></li>
+          </ul>
         </div>
     </div>
 </div>

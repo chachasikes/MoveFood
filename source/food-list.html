@@ -4,18 +4,26 @@
     <meta charset="utf-8">
     <title>MoveFood</title>
     <link rel="stylesheet" href="css/fluid_grid.css" type="text/css" />
+    <link rel="stylesheet" href="css/boilerplate.css" type="text/css" />
     <link rel="stylesheet" href="css/style.css" type="text/css" />
     <script type="text/javascript" src="js/jquery-1.5.min.js"></script>
     <script type="text/javascript" src="js/movefood.js"></script>
     <script type="text/javascript" src="js/foodlist.js"></script>
+
   </head>
   <body>
     <div id="container" class="section container_12">
       <div id="header">
-        <div class="logo"><h1>MoveFood</h1></div>
-        <div id="page-title"><h2>Available Food</h2></div>
+        <div class="logo  grid_6 alpha"><h1>MoveFood</h1></div>
+        <div class="grid_6 omega">
+            <a href="index.html" class="login">Home</a> |
+            <a href="#" class="login" onClick="return moveFood.showLogin()">Login</a> |
+            <a href="register.html" class="login">Create Account</a>
+        </div>
+        <div class="clear"></div>
+        <div id="page-title" class="alpha"><h2>Available Food</h2></div>
       </div>
-      <div id="content">
+      <div id="content"  class="grid_12">
         <table id="food-list">
             <tr>
                 <th>Food Item Name</th>
@@ -23,11 +31,16 @@
                 <th>Perishable</th>
                 <th>Expiration Date</th>
                 <th>Status</th>
+                <th>Share</th>
+                <th>Text</th>
             </tr>
         </table>
       </div>
-      <div id="footer">
+      <div id="footer" class="grid_12 alpha omega">
+        <ul class="menu">
+          <li><a href="https://github.com/chachasikes/MoveFood">Code on Github</a></li>
+          <li>Created at <a href="#">Random Hacks of Kindness #3</a></li>
+        </ul>
       </div>
-  </div>
-  </div>
+    </div>
 </html>

@@ -1,5 +1,229 @@
 moveFood = {};
 
+
+
+/**
+ * Sample data.
+ */
+var dataSampleUser = {
+  0: 
+    {
+      "username":"ChachTest",
+      "password":"pwd",
+      "userimage":"images/user_placeholder.png",
+      "location": "Street Address",
+      "latitude": "-44.11",
+      "longitude":"123.11",
+      "contact":"555-123-1212",
+      "description": "I want to help distribute food." //rename to details
+  }
+}
+
+var dataSampleFoodItem = {
+  0: 
+    {
+      "name": "Broccoli",
+      "username":"ChachTest",
+      "status" : "claimed",
+      "perishable" : 1,
+      "perishable_text" : "Yes",
+      "expiration" : "2011-08-02 00:00:00",
+      "expiration_short" : "2011-08-02",
+      "tweet" : "tweet message",
+      "password":"pwd",
+      "userimage":"images/user_placeholder.png",
+      "location": "Street Address",
+    /*   "location": "Street Address",  */ // default location
+      "latitude": "-44.11",
+      "longitude":"123.11",
+      "contact":"555-123-1212",
+    /*   "contact":"555-123-1212",   */ //default contact
+      "notes": "This broccoli is growing in my backyard.",
+      "description": "I want to help distribute food." //User description
+    }
+
+}
+
+
+/* GENERAL FUNCTIONS */
+/**
+ * Return an error
+ */
+
+moveFood.error = function () {
+  console.log("Error");
+};
+
+
+/* USER LOGIN & REGISTER FUNCTIONS */
+moveFood.registerResponse = function() {
+  console.log("added user");
+};
+
+moveFood.register = function() {
+
+    var item = {};
+
+    item.username = $('form#register-form #user_name').val();
+    item.password = $('form#register-form #user_password').val();
+    item.location = $('form#register-form #user_location').val();
+    item.latitude = $('form#register-form #user_latitude').val();
+    item.longitude = $('form#register-form #user_longitude').val();
+    item.contact = $('form#register-form #user_contact').val(); // phone number
+    item.description = $('form#register-form #user_description').val();
+
+    var dataItem = {
+      "username":item.username,
+      "password":item.password,
+      "location":item.location,
+      "latitude":item.latitude,
+      "longitude":item.longitude,
+      "contact":item.contact,
+      "description":item.description
+    }
+    console.log(item);
+
+    // Insert values.
+    $.ajax({
+    	url: "http://www.movefood.krangarajan.com/movefood/index.php/register",
+      type: "POST",
+      dataType: 'json',
+      data: dataItem,
+      success: moveFood.registerResponse,
+      error: moveFood.error
+    });
+
+    return false;
+};
+
+moveFood.hideLogin = function() {
+    $('#login').hide();
+    return false;
+}
+
+moveFood.showLogin = function() {
+    $('#login').show();
+    $('#user_name').focus();
+    return false;
+}
+
+moveFood.login = function() {
+    var userData = {
+        "username":$('form#login-form #user_name').val(),
+        "password":$('form#login-form #user_password').val()
+    };
+    console.log(userData);
+    $.ajax({
+        url: "http://www.movefood.krangarajan.com/movefood/index.php/login",
+        dataType: 'json',
+        type: "POST",
+        data: userData,
+        success: moveFood.validateLogin,
+        error: moveFood.error
+    });
+    return false;
+};
+
+moveFood.validateLogin = function(response) {
+    console.log(response);
+    if (response.valid == "true") {
+        moveFood.loadData();
+        moveFood.hideLogin();
+        return false;
+    }
+    else {
+        moveFood.failedLogin();
+    }
+}
+
+moveFood.failedLogin = function() {
+  $('#login').show();
+  $('#failedlogin').show();
+  return false;
+};
+
+moveFood.loadData = function() {
+  $.ajax({
+    url: "http://www.movefood.krangarajan.com/movefood/index.php/login/logged_in",
+    data: "",
+    success: function(results) {moveFood.showUser(results);},
+    error: function(result) { moveFood.error() },
+    dataType: "json"
+  });
+}
+
+moveFood.showUser = function(user) {
+  console.log(user);
+  if (user.user != "false") {
+      $.ajax({
+          url: "http://www.movefood.krangarajan.com/movefood/index.php/login/get_user_data",
+          data: "",
+          success: function(results) {moveFood.updateUserBlock(results);},
+          error: function(result) { moveFood.error() },
+          dataType: "json"});
+      $.ajax({
+          url: "http://www.movefood.krangarajan.com/movefood/index.php/list_items",
+          data: "",
+          success: function(results) {moveFood.renderItems(results);},
+          error: function(result) { moveFood.error() },
+          dataType: "json"});
+      $.ajax({
+          url: "http://www.movefood.krangarajan.com/movefood/index.php/list_claims",
+          data: "",
+          success: function(results) {moveFood.renderClaims(results);},
+          error: function(result) { moveFood.error() },
+          dataType: "json"});
+  } else {
+      moveFood.logout();
+  }
+}
+
+moveFood.logout = function() {
+    $.ajax({
+      url: "http://www.movefood.krangarajan.com/movefood/index.php/login/logout",
+      data: "",
+      success: function(results) {moveFood.renderClaims(results);},
+      error: function(result) { moveFood.error() },
+      dataType: "json"
+    });
+    moveFood.updateUserBlock();
+}
+
+moveFood.updateUserBlock = function(user) {
+  if (user != undefined) {
+    $('#username').text(user.username);
+    $('#welcomeuser').html("<a href='javascript:return false;' class='login'>Welcome " + user.username + "</a> ");
+    $('#userlocation').text(user.location_description + ": " + user.latitude + ", " + user.longitude);
+    $('#userbio').text(user.description);
+    $('#userdetails').show();
+    $('#loginlink').hide();
+    $('#logoutlink').show();
+    $('#welcomeuser').show();
+    $('#createaccount').hide();
+  } 
+  else {
+    $('#userdetails').hide();
+    $('#loginlink').show();
+    $('#logoutlink').hide();
+    $('#welcomeuser').hide();
+    $('#createaccount').show();
+  }
+}
+
+
+/* FOOD ITEM FUNCTIONS */
+/**
+ * Render a list of food items.
+ */
+moveFood.renderItems = function(results) {
+    var items;
+    for (i in results) {
+        items = items + "<li>" + results[i].name + "</li>";
+    }
+    $('#itemslist').html(items);
+    $('#items').show();
+}
+
 /**
  * Show an individual item.
  */
@@ -18,29 +242,33 @@ moveFood.showItem = function(data) {
   }
 };
 
-
+/**
+ * Food Item Add Item submit function.
+ */
 moveFood.addItemSubmit = function() {
-  var item = {};
-  item.name = $('form#add-item-block-form #food_name').val();
-  item.description = $('form#add-item-block-form #food_description').val();
-  item.quantity = $('form#add-item-block-form #food_quantity').val();
-  item.units = $('form#add-item-block-form #food_units').val();
-  item.perishable = $('form#add-item-block-form #food_perishable:checked').val();
-  item.expiration = $('form#add-item-block-form #food_expiration').val();
-  item.location_description = $('form#add-item-block-form #food_location_description:checked').val();
-  item.default_location = $('form#add-item-block-form #food_default_location').val();
-  item.notes = $('form#add-item-block-form #food_notes').val();
-  item.contact_detail = $('form#add-item-block-form #food_contact_detail').val();
-  item.default_contact = $('form#add-item-block-form #food_default_contact:checked').val();
-  console.log("adding Item");
-  console.log(item);
+  var data = {
+    "food_name": $('form#add-item-block-form #food_name').val(),
+    "description": $('form#add-item-block-form #food_description').val(),
+    "quantity": $('form#add-item-block-form #food_quantity').val(),
+    "units": $('form#add-item-block-form #food_units').val(),
+    "perishable": $('form#add-item-block-form #food_perishable:checked').val(),
+    "expiration": $('form#add-item-block-form #food_expiration').val(),
+    "location_description": $('form#add-item-block-form #food_location_description:checked').val(),
+    "default_location": $('form#add-item-block-form #food_default_location').val(),
+    "notes": $('form#add-item-block-form #food_notes').val(),
+    "contact_detail": $('form#add-item-block-form #food_contact_detail').val(),
+    "default_contact": $('form#add-item-block-form #food_default_contact:checked').val()
+  }
+
+  console.log("adding Item Food");
+  console.log(data);
 
   // Insert values.
   $.ajax({
-    url: "http://www.movefood.krangarajan.com/movefood/index.php/createitem.php",
+    url: "http://www.movefood.krangarajan.com/movefood/index.php/createitem",
+    type: "POST",
     dataType: 'json',
-    method: "post",
-    data: item,
+    data: data,
     success: moveFood.addItem,
     error: moveFood.error,
   });
@@ -49,88 +277,187 @@ moveFood.addItemSubmit = function() {
 };
 
 moveFood.addItem = function() {
-console.log("added item");
-/*
-  var item;
-  for (i in data) {
-    item = data[i];
-    $('div#content div#food_name').html(item.name);
-    $('div#content div#food_description').html(item.description);
-    $('div#content div#food_quantity').html(item.quantity);
-    $('div#content div#food_perishable').html(item.perishable);
-    $('div#content div#food_expiration').html(item.expiration);
-    $('div#content div#food_location').html(item.location);
-    $('div#content div#food_notes').html(item.notes);
-    $('div#content div#food_contact').html(item.contact);
-  }
-*/
+  console.log("added item");
 };
 
-moveFood.showList = function(results) {
-    for (i in results) {
-        $('#itemslist').append("<li>" + results[i].name + "</li>");
+moveFood.requireAuthentication = function() {
+    user = moveFood.getLoggedInUser(function (results) {return results;});
+    if (moveFood.isLoggedIn(user)) {
+        return true;
+    } else  {
+        moveFood.showLogin();
+        return false;
     }
 }
 
-moveFood.registerResponse = function() {
-  console.log("added user");
-};
-
-moveFood.register = function() {
-  $('form#register-form .form-submit').click(function(){
-    var item = {};
-    item.name = $('form#register-form #user_name').val();
-    item.password = $('form#register-form #user_password').val();
-    item.location = $('form#register-form #user_location').val();
-    item.lat = $('form#register-form #user_location').val();
-    item.lon = $('form#register-form #user_location').val();
-    item.contact = $('form#register-form #user_contact').val();
-    
-  // Insert values.
+/**
+ * Load list of food items.
+ */
+moveFood.showFoodAjax = function() {
   $.ajax({
-  	url: "http://movefood.krangarajan.com/movefood/index.php/register",
-    dataType: 'json',
+    url: "http://www.movefood.krangarajan.com/movefood/index.php/list_items",
+    data: "",
     method: "post",
-    data: item,
-    success: moveFood.registerResponse,
-    error: moveFood.error
-  });
-
-    
-    return false;
+    success: function(results) {moveFood.showList(results);},
+    error: function(results) {moveFood.showList(dataSampleFoodItem);},
+    dataType: "json"
   });
 };
 
-moveFood.showLogin = function() {
-    $('#login').show();
-    return false;
-}
+/**
+ * Show list of food items.
+ */
+moveFood.showList = function(results) {
+console.log(results);
+  if(results === undefined) {
+   results =  dataSampleFoodItem;
+  }
 
-moveFood.login = function(user) {
-    $.ajax({
-        url: "http://www.movefood.krangarajan.com/movefood/index.php/login",
-        dataType: 'json',
-        method: "post",
-        data: user,
-        success: moveFood.validateLogin(response),
-        error: moveFood.error
-    });
-    return false;
-}
-
-moveFood.validateLogin = function(response) {
-    if (response.valid) {
+  for (i in results) {
+    console.log(results);
+    if(results[i].perishable === 0) {
+      results[i].perishable_text = "Yes";
     }
     else {
-        moveFood.failedLogin();
+      results[i].perishable_text = "No";
     }
+
+    var toolTip = "";
+
+    var row = "<tr class='fooditem-id-" + results[i].item_id + "'>"
+            + "<td class='food-name'>" + results[i].name + "</td>"
+            + "<td class='location'>" + results[i].location + "</td>"
+            + "<td class='perisable'>" + results[i].perishable_text + "</td>"
+            + "<td class='expiration'>" + results[i].expiration + "</td>"
+            + "<td><div class='claim button'><a href='#'>Claim this item</a></div></td>"
+            + "<td><div class='tweet button'>" +  moveFood.tweetMessage(results[i]) + "</div></td>"
+            + "<td><div class='text button'>" +  moveFood.textMessage(results[i]) + "</div></td>"
+            + "</tr>";
+            
+/* moveFood.requireAuthentication             */
+    $('#food-list').append(row);
+  }
+};
+
+/**
+ * Show Load a food item.
+ * @TODO pass this an item id.
+ */
+moveFood.showItemLoad = function() {
+  $.ajax({
+    url: "http://www.movefood.krangarajan.com/movefood/index.php/list_items",
+    dataType: 'json',
+    method: "post",
+    success: moveFood.showItem,
+    error: moveFood.error,
+  });
+};
+
+/**
+ * Render a list of a users claims.
+ */
+moveFood.renderClaims = function(results) {
+    for (i in results) {
+        $('#claimslist').append("<li>" + results[i].name + "</li>");
+    }
+    $('#claims').show();
 }
 
-moveFood.failedLogin = function() {
-    $('#login').show();
-    $('#failedlogin').show();
+
+/**
+ * Build a tweet.
+ */
+moveFood.constructTweet = function(result) {
+  var tweet = "";
+  result.tweetLink = "http://www.movefood.krangarajan.com/showItem?id=" + result.item_id;
+  if(result.name !== undefined) {
+    tweet += result.name;
+  }
+  if (result.quantity !== undefined) {
+    tweet += "[unit: " + result.quantity;
+  }
+  else{
+      tweet += "[unit: 1";
+  }
+  if (result.units !== undefined) {
+    tweet += " " + result.units + "]";
+  }
+  else{
+      tweet += " unit]";
+  }
+  if (result.expiration !== undefined) {
+      result.expirationShort = result.expiration.substr(0, (result.expiration.length - 9));
+    tweet += "[expires: " + result.expirationShort + "]";
+  }
+  else{
+  }
+  if((result.latitude !== undefined) && (result.longitude !== undefined)) {
+    tweet += " at (";
+    tweet += result.latitude;
+    tweet += ",";
+    tweet += result.longitude;
+    tweet += ")";
+  }
+  else if (result.location !== undefined){
+    tweet +=  '[loc' + result.location.substr(0, 8) +']';
+  }
+
+  console.log(result);
+  result.tweet = tweet;
+};
+
+/**
+ * Make tweet.
+ */
+moveFood.tweetMessage = function(result) {
+  console.log(result);
+  moveFood.constructTweet(result);
+
+/*
+  var maxLength = 140 - (result.tweet.length + 1);
+
+  if (result.tweet.length > maxLength) {
+    result.tweet = result.tweet.substr(0, (maxLength - 3)) + '...';
+  }
+*/
+
+  result.tweetThisLink = 'http://twitter.com/share?url=' + encodeURIComponent(result.tweetLink) + '&text=' + encodeURIComponent(result.tweet);
+
+  console.log(result);
+  result.tweetStatus = '<a href="' + result.tweetThisLink +'" target="_blank"'+'>Tweet</a>';
+  return result.tweetStatus;
 }
 
-moveFood.error = function () {
-  console.log("Error");
+/**
+ * Make text message.
+ */
+moveFood.textMessage = function(result) {
+   moveFood.constructTweet(result);
+/*
+  var maxLength = 140 - (result.tweet.length + 1);
+  if (result.tweet.length > maxLength) {
+    result.tweet = result.tweet.substr(0, (maxLength - 3)) + '...';
+  }
+*/
+
+  console.log(result);
+  result.textLink = '<a href="' + moveFood.textAction(result) + '"'+' class="send-text">Text/SMS</a>';
+  return result.textLink;
+}
+
+moveFood.textAction = function(result) {
+  var token = "02e46a20ee5cf243a264d9883ad078d01ee70b878ab1b110b63aa2e5aeacf02c09b702bb898dc604bc41ed02";
+  var number = "4154259325";
+  var name = "Chach+Sikes";
+  var msg = result.tweet;
+  console.log(result);
+  var tropo = "https://api.tropo.com/1.0/sessions";
+  tropo += "?action=create";
+  tropo += "&token=" + token;
+  tropo += "&numberToDial=" + number;
+  tropo += "&customerName=" + name;
+  tropo += "&msg=" + encodeURIComponent(msg);
+
+  console.log(tropo);
+  return tropo;
 };

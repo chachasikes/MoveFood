@@ -13,8 +13,8 @@
   <body>
     <div id="container" class="section container_12">
       <div id="header">
-        <div class="logo"><h1>MoveFood</h1></div>
-        <div id="page-title"><h2>Register</h2></div>
+        <div class="logo"><h1><a href="index.html">MoveFood</a></h1></div>
+        <div id="page-title"><h2>Create an Account</h2></div>
         <a href="index.html" class="login">Home</a> |
         <a href="register.html" class="login">Create Account</a>
       </div>
@@ -23,37 +23,50 @@
           <div class="form-item">
             <label for="field_name_value">Name</label>
             <input type="text" id="user_name" name="field_name_value" value="" size="25" maxlength="128" />
+            <div class="help">Create a username.</div>
           </div>
         
           <div class="form-item">
             <label for="field_password_value">Password</label>
             <input type="password" id="user_password" name="field_password_value" value="" size="25" maxlength="128" />
-            <br />(Note: this site is totally insecure.)
+            <div class="help">Create a password. Note: this site is totally insecure.</div>
           </div>
           
           <div class="form-item">
             <label for="field_location_value">Location Description</label>
             <textarea class="text-full form-textarea" id="user_location" name="field_location_value" cols="60" rows="5"></textarea>
+            <div class="help">Describe your location (Address or a description.)</div>
           </div>
           
           <div class="form-item">
-            <label for="field_latitude_value">Latitude</label>
-            <input type="text" id="user_latitude" name="field_latitude_value" value="" size="25" maxlength="128" />
-          </div>
-          
-          <div class="form-item">
-            <label for="field_longitude_value">Longitude</label>
-            <input type="text" id="user_longitude" name="field_longitude_value" value="" size="25" maxlength="128" />
+            <div class="location">
+              <label for="field_location_value">Location Description</label>
+              <textarea class="text-full form-textarea" id="user_location" name="field_location_value" cols="60" rows="5"></textarea>
+              <div class="help">Describe your location (Address or a description.)</div>
+            
+                <div class="form-item-inline">
+                  <label for="field_latitude_value">Latitude</label>
+                  <input type="text" id="user_latitude" name="field_latitude_value" value="" size="8" maxlength="128" />
+                </div>
+                <div class="form-item-inline">
+                  <label for="field_longitude_value">Longitude</label>
+                  <input type="text" id="user_longitude" name="field_longitude_value" value="" size="8" maxlength="128" />
+              </div>
+             </div>
+            <div class="help">(Optional.) Latitude & Longitude </div>
           </div>
 
+
           <div class="form-item">
-            <label for="field_contact_value">Contact Phone Number</label>
-            <input type="text" id="user_contact" name="field_contact_value" value="" size="25" maxlength="128" />
+            <label for="field_contact_value">Contact</label>
+            <textarea class="text-full form-textarea" id="user_contact" name="field_contact_value" cols="60" rows="5"></textarea>
+            <div class="help">What is the best way to contact you?</div>
           </div>  
  
            <div class="form-item">
-            <label for="field_description_value">Description</label>
+            <label for="field_description_value">Details</label>
             <textarea class="text-full form-textarea" id="user_description" name="field_description_value" cols="60" rows="5"></textarea>
+            <div class="help">Other details.</div>
           </div> 
           
           <div class="form-button">

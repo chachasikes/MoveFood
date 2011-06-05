@@ -74,9 +74,8 @@ class claim_model extends CI_Model {
 	
 	function insert_item($food_name,$description,$quantity,$perishable,$expiration,$location_description,$notes){
 
-		$sql = "insert into food_list(name,description,quantity,perishable,expiration,location,notes) values (?,?,?,?,?,?,?)";
-		var_export("$food_name","$description",5,1,"$expiration","$location_description","$notes");
-		$this->db->query($sql,array("$food_name","$description",5,1,"$expiration","$location_description","$notes"));	
+		$sql = "insert into food_list(food_name,description,quantity,perishable,expiration,location,notes) values (?,?,?,?,?,?,?)";
+		$this->db->query($sql,array("$food_name","$description",$quantity,$perishable,"$expiration","$location_description","$notes"));	
 	}
 	
 	function user_items(){

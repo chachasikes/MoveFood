@@ -12,7 +12,7 @@ https://docs.google.com/a/codeforamerica.org/document/d/1wO0oTQdSs0vdKbYqntNT3Uq
 
 * claim button needs to work (RC)
 
-* Text this button (CHACH)
+* Text this button (CHACH) (in progress, json issue)
 * location fields (CHACH)
 * add item needs to work (RC)
 

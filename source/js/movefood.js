@@ -343,6 +343,7 @@ moveFood.showList = function(results) {
             + "<td><div class='text button'>" +  moveFood.textMessage(results[i]) + "</div></td>"
             + "</tr>";
 
+  $('tr fooditem-id-' + results[i].item_id + ' a.send-text').click(moveFood.textAction(results[i]));
 /* moveFood.requireAuthentication             */
     $('#food-list').append(row);
   }
@@ -448,14 +449,14 @@ moveFood.textMessage = function(result) {
   console.log(result);
   
 
-  result.textLink = '<a href="#" onclick="return moveFood.textAction(result)" class="send-text">Text/SMS</a>';
+  result.textLink = '<a href="#" class="send-text">Text/SMS</a>';
   return result.textLink;
 }
 
 moveFood.textAction = function(result) {
 
   var token = "02e46a20ee5cf243a264d9883ad078d01ee70b878ab1b110b63aa2e5aeacf02c09b702bb898dc604bc41ed02";
-  var number = "4154259325";
+  var number = "14154259325";
   var name = "Chach+Sikes";
   var msg = result.tweet;
 /*
@@ -469,36 +470,56 @@ moveFood.textAction = function(result) {
 */
 
 
-  var smsifiedNumber = "7344189228";
+  var smsifiedNumber = "17344189228";
   var address = "address=" + number;
   var message = "&message=" + msg;
 
   var smsified = "https://api.smsified.com/v1/smsmessaging/outbound/" + smsifiedNumber + "/requests";
   console.log(smsified);
   
+/*
   var smsifiedObj = {
    "resourceReference":{
       "resourceURL":
         smsified + address + message
     }
    };
+*/
+
+/*
+// stringify
+ var data = {
+  "address" : number,
+  "messages" : encodeURIComponent(msg)
+ };
+*/
+
+  
+
+  
+  var msg2 = "this is a message";
+
+
+  var post_data = JSON.stringify({  
+  	'address' : number,  
+  	'message': msg2,
+  	'senderAddress': smsifiedNumber
+  });  
 
   
   $.ajax({
-    url: smsified + address + message,
+    url: 'https://api.smsified.com/v1/smsmessaging/outbound/' + smsifiedNumber + '/requests',
+/*     ?address=' + number + '&message=' + msg2 */
+/*           https://api.smsified.com/v1/smsmessaging/outbound/{senderAddress}/requests */
     dataType: 'json',
-    method: "post",
-/*     data: smsifiedObj, */
+    type: "POST",
+    data: post_data,
+    contentType: "application/x-www-form-urlencoded;charset=ISO-8859-15",
     success: moveFood.textMessageSent,
     error: moveFood.error,
   });
-/*
 
-
-  console.log(tropo);
-  return tropo;
-*/
-  return '#';
+  return false;
 };
 
 moveFood.textMessageSent = function () {

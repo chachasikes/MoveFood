@@ -1,43 +1,44 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
 <head>
-    <meta charset="utf-8">
-    <title>MoveFood</title>
-    <link rel="stylesheet" href="css/fluid_grid.css" type="text/css" />
-    <link rel="stylesheet" href="css/style.css" type="text/css" />
-    <script type="text/javascript" src="js/jquery-1.5.min.js"></script>
-    <script type="text/javascript" src="js/movefood.js"></script>
-    <script type="text/javascript" src="js/index.js"></script>
+  <meta charset="utf-8">
+  <title>MoveFood</title>
+  <link rel="stylesheet" href="css/fluid_grid.css" type="text/css" />
+  <link rel="stylesheet" href="css/boilerplate.css" type="text/css" />
+  <link rel="stylesheet" href="css/style.css" type="text/css" />
+  <script type="text/javascript" src="js/jquery-1.5.min.js"></script>
+  <script type="text/javascript" src="js/movefood.js"></script>
+  <script type="text/javascript" src="js/index.js"></script>
 </head>
 <body>
 <div id="container" class="section container_12">
     <div id="header">
         <div class="logo grid_8 alpha"><h1>MoveFood</h1></div>
         <div class="grid_2 omega">
-            <a href="#" onClick="return moveFood.showLogin()">Login</a> |
-            <a href="register.html">Create Account</a>
+            <a href="#" class="login" onClick="return moveFood.showLogin()">Login</a> |
+            <a href="register.html" class="login">Create Account</a>
         </div>
         <div id="content" class="grid_12">
-            <div id="userdetails">
-                <div class="grid_1"><img id="userimage" src="#"/></div>
-                <div class="grid_11">
+            <div id="userdetails"  class="grid_12">
+                <div class="grid_2"><div class="userimage"><img src="images/user_placeholder.png"/></div></div>
+                <div class="grid_10">
                     <div id="username">Joe Washel</div>
                     <div id="userlocation">Georgetown, WA</div>
                     <div id="userbio">I love delivering goods for those in need.</div>
                 </div>
             </div>
-            <div id="actions">
-                <div id="haveaction" class="grid_6"><a href="add-item.html">I have</a></div>
-                <div id="helpaction" class="grid_6"><a href="food-list.html">I can help</a></div>
+            <div id="actions grid_12">
+                <div id="haveaction" class="grid_3 button"><a href="add-item.html">I have</a></div>
+                <div id="helpaction" class="grid_3 button"><a href="food-list.html">I can help</a></div>
             </div>
             <div id="lists">
                 <div id="items" class="grid_6">
-                    <div>Items I have listed</div>
+                    <div class="list"><h3>Items I have listed</h3></div>
                     <ul id="itemslist">
                     </ul>
                 </div>
                 <div id="claims" class="grid_6">
-                    <div>Items I have claimed</div>
+                    <div class="list"><h3>Items I have claimed</h3></div>
                     <ul id="claimslist">
                     </ul>
                 </div>

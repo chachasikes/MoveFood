@@ -292,7 +292,7 @@ moveFood.addItem = function() {
 };
 
 moveFood.requireAuthentication = function(url) {
-    user = moveFood.isUserLoggedIn(function (user) {
+    user = moveFood.isUserLoggedIn(function (user, url) {
         if (moveFood.isLoggedIn(user) && url != undefined) {
             window.location = url;
         } else  {

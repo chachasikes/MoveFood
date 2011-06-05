@@ -338,7 +338,7 @@ moveFood.showList = function(results) {
             + "<td class='location'>" + results[i].location + "</td>"
             + "<td class='perisable'>" + results[i].perishable_text + "</td>"
             + "<td class='expiration'>" + results[i].expiration + "</td>"
-            + "<td><div class='claim button'><a href='#'>Claim this item</a></div></td>"
+            + "<td><div class='claim button'><a href='#' onclick='moveFood.claim(" + results[i].item_id + "); return false;'>Claim this item</a></div></td>"
             + "<td><div class='tweet button'>" +  moveFood.tweetMessage(results[i]) + "</div></td>"
             + "<td><div class='text button'>" +  moveFood.textMessage(results[i]) + "</div></td>"
             + "</tr>";
@@ -525,3 +525,21 @@ moveFood.textAction = function(result) {
 moveFood.textMessageSent = function () {
   console.log("text message sent");
 };
+
+moveFood.claim = function(id) {
+ var data = {
+    "item_id":id
+ }
+ $.ajax({
+    	url: "http://movefood.krangarajan.com/movefood/index.php/claim",
+      type: "POST",
+      dataType: 'json',
+      data: data,
+      success: moveFood.claimed,
+      error: moveFood.error
+    });
+}
+
+moveFood.claimed = function() {
+
+}

@@ -13,7 +13,7 @@ $(document).ready(function(){
     item.notes = $('form#add-item-block-form #food_notes').val();
     item.contact_detail = $('form#add-item-block-form #food_contact_detail').val();
     item.default_contact = $('form#add-item-block-form #food_default_contact:checked').val();
-    
+
 /*
     $.post('ajax/test.html', function(data) {
     

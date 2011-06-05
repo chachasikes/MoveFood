@@ -104,7 +104,7 @@ moveFood.loadData = function() {
     data: "",
     success: function(results) {moveFood.showUser(results);},
     error: function(result) { moveFood.error(result) },
-    dataType: "jsonp"
+    dataType: "json"
   });
 }
 

@@ -18,13 +18,15 @@ class Login extends CI_Controller {
 		$logged_in = $this->login_model->log_in($username,sha1($password));
 		if($logged_in){
 			$data = array("valid"=>"true");
-            echo $_GET['callback'] . '('.json_encode($data).')';
-			//echo json_encode($data);
+//            print_r($_GET);
+//            echo $_GET['callback'] . '('.json_encode($data).')';
+			echo json_encode($data);
 		}
 		else{
 			$data = array("valid"=>"false");
-			echo $_GET['callback'] . '('.json_encode($data).')';
-            //echo json_encode($data);
+//			print_r($_GET);
+//            echo $_GET['callback'] . '('.json_encode($data).')';
+            echo json_encode($data);
 		}
 	}
 	

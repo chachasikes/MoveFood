@@ -1,7 +1,14 @@
 $(document).ready(function(){
 
+  // Load available food items.
+  
+  // Do get request.
+  
+  // Read through list of items, and create table elements.
 
     var item = {};
+    item.foodItemID = "food ID";
+    item.userID = "user ID";
     item.name = "name";
     item.description = "description";
     item.quantity = "quantity";
@@ -11,6 +18,7 @@ $(document).ready(function(){
     item.notes = "notes";
     item.contact = "contact";
 
+/*
             
     $('div#content div#food_name').html(item.name);
     $('div#content div#food_description').html(item.description);
@@ -20,6 +28,7 @@ $(document).ready(function(){
     $('div#content div#food_location').html(item.location);
     $('div#content div#food_notes').html(item.notes);
     $('div#content div#food_contact').html(item.contact);
+*/
 
     
     

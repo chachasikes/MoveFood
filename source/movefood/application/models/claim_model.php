@@ -71,11 +71,10 @@ class claim_model extends CI_Model {
 		}
 		echo json_encode($items);
 	}
-
-	function insert_item($food_name,$description,$quantity,$perishable,$expiration,$location_description,$default_location,$notes,$default_contact){
-		$sql = "insert into food_list(food_name,description,quantity,perishable,expiration,location_description,default_location,notes,default_contact) values (?,?,?,?,?,?,?,?,?)";
-		$this->db->query($sql,"$food_name","$description",$quantity,$perishable,"$expiration","$location_description",$default_location,"$notes",$default_contact);
-		
+	
+	function insert_item($food_name,$description,$quantity,$perishable,$expiration,$location_description,$location,$notes,$contact){
+		$sql = "insert into food_list(name,description,quantity,perishable,expiration,location,notes) values (?,?,?,?,?,?,?)";
+		$this->db->query($sql,"$food_name","$description","$quantity","$perishable","$expiration","$location_description","$notes");	
 	}
 	
 	function user_items(){

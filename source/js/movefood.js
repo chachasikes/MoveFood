@@ -270,9 +270,12 @@ moveFood.updateUserBlock = function(user) {
 }
 
 moveFood.renderItems = function(results) {
+
+    var items;
     for (i in results) {
-        $('#itemslist').append("<li>" + results[i].name + "</li>");
+        items = items + "<li>" + results[i].name + "</li>";
     }
+    $('#itemslist').html(items);
     $('#items').show();
 }
 

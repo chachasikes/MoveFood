@@ -287,6 +287,7 @@ moveFood.addItemSubmit = function() {
 };
 
 moveFood.addItem = function() {
+  window.location.href = 'http://www.movefood.krangarajan.com/index.html';
   console.log("added item");
 };
 

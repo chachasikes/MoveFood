@@ -50,8 +50,9 @@ var dataSampleFoodItem = {
  * Return an error
  */
 
-moveFood.error = function () {
+moveFood.error = function (error) {
   console.log("Error");
+  console.log(error);
 };
 
 
@@ -142,19 +143,27 @@ moveFood.failedLogin = function() {
   return false;
 };
 
-moveFood.loadData = function() {
-  $.ajax({
-    url: "http://www.movefood.krangarajan.com/movefood/index.php/login/logged_in",
-    data: "",
-    success: function(results) {moveFood.showUser(results);},
-    error: function(result) { moveFood.error() },
-    dataType: "json"
-  });
+moveFood.isUserLoggedIn = function(callback) {
+    $.ajax({
+        url: "http://www.movefood.krangarajan.com/movefood/index.php/login/logged_in",
+        data: "",
+        async: false,
+        success: function(results) {callback(results);},
+        error: function(result) { moveFood.error(result) },
+        dataType: "json"
+    });
 }
 
+moveFood.loadData = function() {
+    moveFood.isUserLoggedIn(moveFood.showUser);
+}
+
+moveFood.isLoggedIn = function (user) {
+    return user != undefined && user.user;
+}
 moveFood.showUser = function(user) {
   console.log(user);
-  if (user.user != "false") {
+  if (moveFood.isLoggedIn(user)) {
       $.ajax({
           url: "http://www.movefood.krangarajan.com/movefood/index.php/login/get_user_data",
           data: "",
@@ -162,7 +171,7 @@ moveFood.showUser = function(user) {
           error: function(result) { moveFood.error() },
           dataType: "json"});
       $.ajax({
-          url: "http://www.movefood.krangarajan.com/movefood/index.php/list_items",
+          url: "http://www.movefood.krangarajan.com/movefood/index.php/my_items",
           data: "",
           success: function(results) {moveFood.renderItems(results);},
           error: function(result) { moveFood.error() },
@@ -200,13 +209,15 @@ moveFood.updateUserBlock = function(user) {
     $('#logoutlink').show();
     $('#welcomeuser').show();
     $('#createaccount').hide();
-  } 
+    $('#lists').show();
+  }
   else {
     $('#userdetails').hide();
     $('#loginlink').show();
     $('#logoutlink').hide();
     $('#welcomeuser').hide();
     $('#createaccount').show();
+    $('#lists').hide();
   }
 }
 
@@ -216,9 +227,9 @@ moveFood.updateUserBlock = function(user) {
  * Render a list of food items.
  */
 moveFood.renderItems = function(results) {
-    var items;
+    var items = "";
     for (i in results) {
-        items = items + "<li>" + results[i].name + "</li>";
+        items = items + "<li><a href='#'>" + results[i].name + "</a> <a href='#' id='food-item-" + results[i].item_id + "'  class='update-status'>Remove</a></li>"
     }
     $('#itemslist').html(items);
     $('#items').show();
@@ -280,14 +291,14 @@ moveFood.addItem = function() {
   console.log("added item");
 };
 
-moveFood.requireAuthentication = function() {
-    user = moveFood.getLoggedInUser(function (results) {return results;});
-    if (moveFood.isLoggedIn(user)) {
-        return true;
-    } else  {
-        moveFood.showLogin();
-        return false;
-    }
+moveFood.requireAuthentication = function(url) {
+    user = moveFood.isUserLoggedIn(function (user) {
+        if (moveFood.isLoggedIn(user) && url != undefined) {
+            window.location = url;
+        } else  {
+            moveFood.showLogin();
+        }
+    });
 }
 
 /**
@@ -308,13 +319,11 @@ moveFood.showFoodAjax = function() {
  * Show list of food items.
  */
 moveFood.showList = function(results) {
-console.log(results);
   if(results === undefined) {
    results =  dataSampleFoodItem;
   }
 
   for (i in results) {
-    console.log(results);
     if(results[i].perishable === 0) {
       results[i].perishable_text = "Yes";
     }
@@ -333,7 +342,8 @@ console.log(results);
             + "<td><div class='tweet button'>" +  moveFood.tweetMessage(results[i]) + "</div></td>"
             + "<td><div class='text button'>" +  moveFood.textMessage(results[i]) + "</div></td>"
             + "</tr>";
-            
+
+  $('tr fooditem-id-' + results[i].item_id + ' a.send-text').click(moveFood.textAction(results[i]));
 /* moveFood.requireAuthentication             */
     $('#food-list').append(row);
   }
@@ -369,7 +379,7 @@ moveFood.renderClaims = function(results) {
  */
 moveFood.constructTweet = function(result) {
   var tweet = "";
-  result.tweetLink = "http://www.movefood.krangarajan.com/showItem?id=" + result.item_id;
+  result.tweetLink = "http://www.movefood.krangarajan.com/food-list.html?id=" + result.item_id;
   if(result.name !== undefined) {
     tweet += result.name;
   }
@@ -413,13 +423,11 @@ moveFood.tweetMessage = function(result) {
   console.log(result);
   moveFood.constructTweet(result);
 
-/*
   var maxLength = 140 - (result.tweet.length + 1);
 
   if (result.tweet.length > maxLength) {
     result.tweet = result.tweet.substr(0, (maxLength - 3)) + '...';
   }
-*/
 
   result.tweetThisLink = 'http://twitter.com/share?url=' + encodeURIComponent(result.tweetLink) + '&text=' + encodeURIComponent(result.tweet);
 
@@ -433,23 +441,25 @@ moveFood.tweetMessage = function(result) {
  */
 moveFood.textMessage = function(result) {
    moveFood.constructTweet(result);
-/*
   var maxLength = 140 - (result.tweet.length + 1);
   if (result.tweet.length > maxLength) {
     result.tweet = result.tweet.substr(0, (maxLength - 3)) + '...';
   }
-*/
 
   console.log(result);
-  result.textLink = '<a href="' + moveFood.textAction(result) + '"'+' class="send-text">Text/SMS</a>';
+  
+
+  result.textLink = '<a href="#" class="send-text">Text/SMS</a>';
   return result.textLink;
 }
 
 moveFood.textAction = function(result) {
+
   var token = "02e46a20ee5cf243a264d9883ad078d01ee70b878ab1b110b63aa2e5aeacf02c09b702bb898dc604bc41ed02";
-  var number = "4154259325";
+  var number = "14154259325";
   var name = "Chach+Sikes";
   var msg = result.tweet;
+/*
   console.log(result);
   var tropo = "https://api.tropo.com/1.0/sessions";
   tropo += "?action=create";
@@ -457,7 +467,61 @@ moveFood.textAction = function(result) {
   tropo += "&numberToDial=" + number;
   tropo += "&customerName=" + name;
   tropo += "&msg=" + encodeURIComponent(msg);
+*/
 
-  console.log(tropo);
-  return tropo;
+
+  var smsifiedNumber = "17344189228";
+  var address = "address=" + number;
+  var message = "&message=" + msg;
+
+  var smsified = "https://api.smsified.com/v1/smsmessaging/outbound/" + smsifiedNumber + "/requests";
+  console.log(smsified);
+  
+/*
+  var smsifiedObj = {
+   "resourceReference":{
+      "resourceURL":
+        smsified + address + message
+    }
+   };
+*/
+
+/*
+// stringify
+ var data = {
+  "address" : number,
+  "messages" : encodeURIComponent(msg)
+ };
+*/
+
+  
+
+  
+  var msg2 = "this is a message";
+
+
+  var post_data = JSON.stringify({  
+  	'address' : number,  
+  	'message': msg2,
+  	'senderAddress': smsifiedNumber
+  });  
+
+  
+  $.ajax({
+    url: 'https://api.smsified.com/v1/smsmessaging/outbound/' + smsifiedNumber + '/requests',
+/*     ?address=' + number + '&message=' + msg2 */
+/*           https://api.smsified.com/v1/smsmessaging/outbound/{senderAddress}/requests */
+    dataType: 'json',
+    type: "POST",
+    data: post_data,
+    contentType: "application/x-www-form-urlencoded;charset=ISO-8859-15",
+    success: moveFood.textMessageSent,
+    error: moveFood.error,
+  });
+
+  return false;
+};
+
+moveFood.textMessageSent = function () {
+  console.log("text message sent");
 };

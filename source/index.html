@@ -35,7 +35,7 @@
             </div>
 
                 <div id="actions" class="user-buttons grid_12 alpha">
-                  <div id="haveaction" class="grid_3 button"><a href="add-item.html" onclick="return moveFood.requireAuthentication()">I have</a></div>
+                  <div id="haveaction" class="grid_3 button"><a href="add-item.html" onclick="moveFood.requireAuthentication($('#haveaction a').attr('href')); return false;">I have</a></div>
                   <div id="helpaction" class="grid_3 button"><a href="food-list.html">I can help</a></div>
                 </div>
                 
@@ -43,7 +43,7 @@
                 <div id="items" class="grid_5">
                     <h3>Items I have listed</h3>
                     <ul id="itemslist"  class="list">
-                      <li><a href="#">ItemName</a> <a href="#" id="food-item-3"  class="update-status">Remove</a></li>
+
                       <li><a href="#">ItemName</a> <a href="#" id="food-item-4"  class="update-status">Remove</a></li>
                     </ul>
                 </div>
@@ -83,6 +83,9 @@
 
         <div class="form-button">
             <input type="submit" class="form-submit" value="Submit" name="op" id="edit-submit">
+        </div>
+        <div class="form-button">
+            <input type="button" class="cancel" value="Cancel" name="op" id="edit-cancel" onclick="moveFood.hideLogin()">
         </div>
 
     </form>

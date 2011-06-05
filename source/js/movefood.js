@@ -143,19 +143,27 @@ moveFood.failedLogin = function() {
   return false;
 };
 
-moveFood.loadData = function() {
-  $.ajax({
-    url: "http://www.movefood.krangarajan.com/movefood/index.php/login/logged_in",
-    data: "",
-    success: function(results) {moveFood.showUser(results);},
-    error: function(result) { moveFood.error(result) },
-    dataType: "json"
-  });
+moveFood.isUserLoggedIn = function(callback) {
+    $.ajax({
+        url: "http://www.movefood.krangarajan.com/movefood/index.php/login/logged_in",
+        data: "",
+        async: false,
+        success: function(results) {callback(results);},
+        error: function(result) { moveFood.error(result) },
+        dataType: "json"
+    });
 }
 
+moveFood.loadData = function() {
+    moveFood.isUserLoggedIn(moveFood.showUser);
+}
+
+moveFood.isLoggedIn = function (user) {
+    return user != undefined && user.user;
+}
 moveFood.showUser = function(user) {
   console.log(user);
-  if (user.user != "false") {
+  if (moveFood.isLoggedIn(user)) {
       $.ajax({
           url: "http://www.movefood.krangarajan.com/movefood/index.php/login/get_user_data",
           data: "",
@@ -283,14 +291,14 @@ moveFood.addItem = function() {
   console.log("added item");
 };
 
-moveFood.requireAuthentication = function() {
-    user = moveFood.getLoggedInUser(function (results) {return results;});
-    if (moveFood.isLoggedIn(user)) {
-        return true;
-    } else  {
-        moveFood.showLogin();
-        return false;
-    }
+moveFood.requireAuthentication = function(url) {
+    user = moveFood.isUserLoggedIn(function (user) {
+        if (moveFood.isLoggedIn(user)) {
+            window.location = url
+        } else  {
+            moveFood.showLogin();
+        }
+    });
 }
 
 /**

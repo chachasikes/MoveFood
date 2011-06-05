@@ -293,7 +293,7 @@ moveFood.addItem = function() {
 
 moveFood.requireAuthentication = function(url) {
     user = moveFood.isUserLoggedIn(function (user) {
-        if (moveFood.isLoggedIn(user)) {
+        if (moveFood.isLoggedIn(user) && url != undefined) {
             window.location = url
         } else  {
             moveFood.showLogin();

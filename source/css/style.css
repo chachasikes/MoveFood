@@ -20,26 +20,26 @@
 }
 
 table#food-list th {
-  width: 150px;
-
+  background-color: #C9F4F3;
 }
 
 table th,
 table td {
   vertical-align: top;
   text-align: left;
+  padding: 5px 20px 5px 5px;
 }
 
 table, th, td {
-border: 1px solid black;
+  border: 1px solid black;
 }
 
 table {
-border-collapse:collapse;
+  border-collapse:collapse;
 }
 
 table,th, td {
-border: 1px solid black;
+  border: 1px solid #C1D6D5;
 }
 
 #login {
@@ -92,7 +92,7 @@ body, p {
 
 .user-buttons .button a:hover,
 .user-buttons .button a:active {
-background-color: #6AD3D3;
+  background-color: #6AD3D3;
 }
 
 a {
@@ -163,10 +163,16 @@ ul.list li {
   list-style-image: none;
   list-style-position: inside;
 }
-
+#food-list .button,
 .update-status {
   font-weight: normal;
   font-size: 75%;
+}
+
+#food-list .button {
+  padding: 10px;
+  border: 1px dotted #C1D6D5;
+  background-color: #DFEFEF;
 }
 
 ul, ol {

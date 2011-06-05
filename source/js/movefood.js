@@ -369,7 +369,7 @@ moveFood.renderClaims = function(results) {
  */
 moveFood.constructTweet = function(result) {
   var tweet = "";
-  result.tweetLink = "http://www.movefood.krangarajan.com/showItem?id=" + result.item_id;
+  result.tweetLink = "http://www.movefood.krangarajan.com/food-list.html?id=" + result.item_id;
   if(result.name !== undefined) {
     tweet += result.name;
   }
@@ -413,13 +413,11 @@ moveFood.tweetMessage = function(result) {
   console.log(result);
   moveFood.constructTweet(result);
 
-/*
   var maxLength = 140 - (result.tweet.length + 1);
 
   if (result.tweet.length > maxLength) {
     result.tweet = result.tweet.substr(0, (maxLength - 3)) + '...';
   }
-*/
 
   result.tweetThisLink = 'http://twitter.com/share?url=' + encodeURIComponent(result.tweetLink) + '&text=' + encodeURIComponent(result.tweet);
 
@@ -457,6 +455,16 @@ moveFood.textAction = function(result) {
   tropo += "&numberToDial=" + number;
   tropo += "&customerName=" + name;
   tropo += "&msg=" + encodeURIComponent(msg);
+
+
+  var address = "address=" + number;
+  var message = "&message=" + msg;
+
+  var smsified = "https://api.smsified.com/v1/smsmessaging/outbound/" + address + message + "/requests";
+  console.log(smsified);
+  var tropoObj = {
+    
+  };
 
   console.log(tropo);
   return tropo;

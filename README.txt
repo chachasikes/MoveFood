@@ -10,8 +10,7 @@ https://docs.google.com/a/codeforamerica.org/document/d/1wO0oTQdSs0vdKbYqntNT3Uq
 
 ### Still to do - sat 11"15 pm
 
-* login (will be done tonight)
-* claim button 
+* claim button
 * show item load data
 * check food list loads data
 * add data (chach) inserts data

@@ -171,6 +171,10 @@ a:active, a:visited {
   width:150px;
 }
 
+#lists {
+    display: none;
+}
+
 #lists .item {
   background-color: #F5F9AF;
   padding: 20px;

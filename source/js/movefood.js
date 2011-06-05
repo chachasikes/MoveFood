@@ -174,18 +174,30 @@ moveFood.failedLogin = function() {
     return false;
 }
 
-moveFood.loadData = function() {
+function getLoggedInUser(callback) {
     $.ajax({
         url: "http://www.movefood.krangarajan.com/movefood/index.php/login/logged_in",
+        async: false,
         data: "",
-        success: function(results) {moveFood.showUser(results);},
-        error: function(result) { moveFood.error() },
+        success: function(results) {
+            callback(results);
+        },
+        error: function(result) {
+            moveFood.error()
+        },
         dataType: "json"});
+}
+moveFood.loadData = function() {
+    var user = getLoggedInUser(moveFood.showUser);
+}
+
+moveFood.isLoggedIn = function(user) {
+    return user != undefined && user.user != "false";
 }
 
 moveFood.showUser = function(user) {
     console.log(user);
-    if (user.user != "false") {
+    if (moveFood.isLoggedIn(user)) {
         $.ajax({
             url: "http://www.movefood.krangarajan.com/movefood/index.php/login/get_user_data",
             data: "",
@@ -205,7 +217,7 @@ moveFood.showUser = function(user) {
             error: function(result) { moveFood.error() },
             dataType: "json"});
     } else {
-        moveFood.logOut();
+        moveFood.logout();
     }
 }
 
@@ -213,8 +225,6 @@ moveFood.logout = function() {
     $.ajax({
             url: "http://www.movefood.krangarajan.com/movefood/index.php/login/logout",
             data: "",
-            success: function(results) {moveFood.renderClaims(results);},
-            error: function(result) { moveFood.error() },
             dataType: "json"});
     moveFood.updateUserBlock();
 }
@@ -227,6 +237,7 @@ moveFood.updateUserBlock = function(user) {
         $('#userbio').text(user.description);
         $('#userdetails').show();
         $('#loginlink').hide();
+        $('#lists').show();
         $('#logoutlink').show();
         $('#welcomeuser').show();
         $('#createaccount').hide();
@@ -236,6 +247,7 @@ moveFood.updateUserBlock = function(user) {
         $('#logoutlink').hide();
         $('#welcomeuser').hide();
         $('#createaccount').show();
+        $('#lists').hide();
     }
 }
 
@@ -256,3 +268,13 @@ moveFood.renderClaims = function(results) {
 moveFood.error = function () {
   console.log("Error");
 };
+
+moveFood.requireAuthentication = function() {
+    user = getLoggedInUser(function (results) {return results;});
+    if (moveFood.isLoggedIn(user)) {
+        return true;
+    } else  {
+        moveFood.showLogin();
+        return false;
+    }
+}

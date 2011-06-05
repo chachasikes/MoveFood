@@ -47,12 +47,24 @@ $(document).ready(function(){
 */
 
     function showList(results) {
+    
         for (i in results) {
+        console.log(results);
+            if(results[i].perishable === 0) {
+            results[i].perishable_text = "Yes";
+            }
+            else {
+            results[i].perishable_text = "No";
+            }
+
+            var toolTip = "";
+
+        
             var row = "<tr class='fooditem-id-" + results[i].item_id + "'>"
                     + "<td class='food-name'>" + results[i].name + "</td>"
                     + "<td class='location'>" + results[i].location + "</td>"
-                    + "<td class='perisable'>" + results[i].perisable + "</td>"
-                    + "<td class='expiration'>" + results[i].expriation + "</td>"
+                    + "<td class='perisable'>" + results[i].perishable_text + "</td>"
+                    + "<td class='expiration'>" + results[i].expiration + "</td>"
                     + "<td><div class='claim button'><a href='#'>Claim this item</a></div></td>"
                     + "</tr>";
             $('#food-list').append(row);

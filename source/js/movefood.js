@@ -19,6 +19,23 @@ moveFood.showItem = function(data) {
 };
 
 
+moveFood.loadItemDetails = function(data) {
+  var item;
+  var output;
+  for (i in data) {
+    item = data[i];
+/*     output += */
+    $('div#content div#food_name').html(item.name);
+    $('div#content div#food_description').html(item.description);
+    $('div#content div#food_quantity').html(item.quantity);
+    $('div#content div#food_perishable').html(item.perishable);
+    $('div#content div#food_expiration').html(item.expiration);
+    $('div#content div#food_location').html(item.location);
+    $('div#content div#food_notes').html(item.notes);
+    $('div#content div#food_contact').html(item.contact);
+  }
+};
+
 moveFood.addItemSubmit = function() {
 /*   var item = {}; */
 /*
@@ -157,36 +174,123 @@ moveFood.login = function() {
         error: moveFood.error
     });
     return false;
-}
+};
 
 moveFood.validateLogin = function(response) {
-    console.log(response);
-    if (response.valid == "true") {
-        setTimeout(loadData, 0);
-        hideLogin();
-        return false;
-    }
-    else {
-        failedLogin();
-    }
-}
+  console.log(response);
+  if (response.valid == "true") {
+      setTimeout(loadData, 0);
+      hideLogin();
+      return false;
+  }
+  else {
+      failedLogin();
+  }
+};
 
 moveFood.failedLogin = function() {
-    $('#login').show();
-    $('#failedlogin').show();
-    return false;
-}
+  $('#login').show();
+  $('#failedlogin').show();
+  return false;
+};
 
 moveFood.loadData = function() {
-    $.ajax({
-        url: "http://www.movefood.krangarajan.com/movefood/index.php/list_claims",
-        data: "",
-        method: "post",
-        success: function(results) {moveFood.showList(results);},
-        error: function(result) { moveFood.error() },
-        dataType: "json"});
-}
+  $.ajax({
+    url: "http://www.movefood.krangarajan.com/movefood/index.php/list_claims",
+    data: "",
+    method: "post",
+    success: function(results) {moveFood.showList(results);},
+    error: function(result) { moveFood.error() },
+    dataType: "json"
+  });
+};
 
 moveFood.error = function () {
   console.log("Error");
+};
+
+
+moveFood.loadTwitterList = function() {
+  $.ajax({
+    url: "http://www.movefood.krangarajan.com/movefood/index.php/list_items",
+    data: "",
+    method: "post",
+    success: function(results) {moveFood.createTwitterRow(results);},
+    error: function(result) { alert("failed") },
+    dataType: "json"
+  });
+};
+
+moveFood.tweetMessage = function(result) {
+  var maxLength = 140 - (result.tweet.length + 1);
+  console.log(maxLength);
+  if (result.tweet.length > maxLength) {
+    result.tweet = result.tweet.substr(0, (maxLength - 3)) + '...';
+  }
+
+  result.twitterLink = 'http://twitter.com/home?status=' + "test" /* + encodeURIComponent(result.tweet) */;
+  console.log(result);
+  result.tweetStatus = '<a href="' + result.twitterLink +'" target="_blank"'+'>Tweet</a>'
+  return result.tweetStatus;
+}
+
+moveFood.createTwitterRow = function(results) {
+  for (i in results) {
+    console.log(results);
+
+    if(results[i].perishable === 0) {
+      results[i].perishable_text = "Yes";
+    }
+    else {
+      results[i].perishable_text = "No";
+    }
+
+   
+    moveFood.constructTweet(results[i]);
+      
+    var row = "<tr class='fooditem-id-" + results[i].item_id + "'>"
+            + "<td class='food-name'>" + results[i].name + "</td>"
+            + "<td class='tweet'>" + results[i].tweet + "</td>"
+            + "<td><div class='claim button'>" +  moveFood.tweetMessage(results[i]) + "</div></td>"
+            + "</tr>";
+    $('#food-list').append(row);
+  }
+};
+
+moveFood.constructTweet = function(result) {
+  var tweet = "";
+  result.tweetLink = "http://mv.fd/123456?id=" + result.item_id;
+  if(result.name !== undefined) {
+    tweet += '<a href="' + result.tweetLink + '">' + result.name + '</a> ';
+  }
+  if (result.quantity !== undefined) {
+    tweet += "[unit: " + result.quantity;
+  }
+  else{
+      tweet += "[unit: 1";
+  }
+  if (result.units !== undefined) {
+    tweet += " " + result.units + "]";
+  }  
+  else{
+      tweet += " unit]";
+  }
+  if (result.expiration !== undefined) {
+      result.expirationShort = result.expiration.substr(0, (result.expiration.length - 9));
+    tweet += "[expires: " + result.expirationShort + "]";
+  }
+  else{
+  }
+  if((result.latitude !== undefined) && (result.longitude !== undefined)) {
+    tweet += " at (";
+    tweet += result.latitude;
+    tweet += ",";
+    tweet += result.longitude;
+    tweet += "}";
+  }
+  else if (result.location !== undefined){
+    tweet +=  '[loc' + result.location.substr(0, 8) +']';
+  }
+  console.log(result);
+ result.tweet = tweet;
 };

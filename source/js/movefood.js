@@ -229,7 +229,7 @@ moveFood.updateUserBlock = function(user) {
 moveFood.renderItems = function(results) {
     var items = "";
     for (i in results) {
-        items = items + "<li>" + results[i].name + "</li>";
+        items = items + "<li><a href='#'>" + results[i].name + "</a> <a href='#' id='food-item-" + results[i].item_id + "'  class='update-status'>Remove</a></li>"
     }
     $('#itemslist').html(items);
     $('#items').show();

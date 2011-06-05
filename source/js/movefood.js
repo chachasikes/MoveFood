@@ -20,7 +20,8 @@ moveFood.showItem = function(data) {
 
 
 moveFood.addItemSubmit = function() {
-  var item = {};
+/*   var item = {}; */
+/*
   item.name = $('form#add-item-block-form #food_name').val();
   item.description = $('form#add-item-block-form #food_description').val();
   item.quantity = $('form#add-item-block-form #food_quantity').val();
@@ -32,15 +33,34 @@ moveFood.addItemSubmit = function() {
   item.notes = $('form#add-item-block-form #food_notes').val();
   item.contact_detail = $('form#add-item-block-form #food_contact_detail').val();
   item.default_contact = $('form#add-item-block-form #food_default_contact:checked').val();
+  
+*/
+  
+  var data = {
+  "name": $('form#add-item-block-form #food_name').val(),
+  "description": $('form#add-item-block-form #food_description').val(),
+  "quantity": $('form#add-item-block-form #food_quantity').val(),
+  "units": $('form#add-item-block-form #food_units').val(),
+  "perishable": $('form#add-item-block-form #food_perishable:checked').val(),
+  "expiration": $('form#add-item-block-form #food_expiration').val(),
+  "location_description": $('form#add-item-block-form #food_location_description:checked').val(),
+  "default_location": $('form#add-item-block-form #food_default_location').val(),
+  "notes": $('form#add-item-block-form #food_notes').val(),
+  "contact_detail": $('form#add-item-block-form #food_contact_detail').val(),
+  "default_contact": $('form#add-item-block-form #food_default_contact:checked').val()
+  }
+  
+  
+  
   console.log("adding Item");
-  console.log(item);
+  console.log(data);
 
   // Insert values.
   $.ajax({
-    url: "http://www.movefood.krangarajan.com/movefood/index.php/createitem.php",
+    url: "http://www.movefood.krangarajan.com/movefood/index.php/createitem",
+    type: "POST",
     dataType: 'json',
-    method: "post",
-    data: item,
+    data: data,
     success: moveFood.addItem,
     error: moveFood.error,
   });

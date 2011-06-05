@@ -20,29 +20,26 @@
 }
 
 table#food-list th {
-  width: 150px;
-
+  background-color: #C9F4F3;
 }
 
-.menu li {
-  float: left;
-}
 table th,
 table td {
   vertical-align: top;
   text-align: left;
+  padding: 5px 20px 5px 5px;
 }
 
 table, th, td {
-border: 1px solid black;
+  border: 1px solid black;
 }
 
 table {
-border-collapse:collapse;
+  border-collapse:collapse;
 }
 
 table,th, td {
-border: 1px solid black;
+  border: 1px solid #C1D6D5;
 }
 
 #login {
@@ -88,14 +85,14 @@ body, p {
 .user-buttons .button a{
   padding: 20px;
   margin: 10px 0 20px 0;
-  height:2em;
+  height:1.5em;
   display: block;
   background-color: #C9F4F3;
 }
 
 .user-buttons .button a:hover,
 .user-buttons .button a:active {
-background-color: #6AD3D3;
+  background-color: #6AD3D3;
 }
 
 a {
@@ -178,4 +175,38 @@ a:active, a:visited {
 #lists .item {
   background-color: #F5F9AF;
   padding: 20px;
+}
+
+ul.list li {
+  margin: 0 0 10px 0;
+  padding: 0;
+  list-style-type: none;
+  list-style-image: none;
+  list-style-position: inside;
+}
+#food-list .button,
+.update-status {
+  font-weight: normal;
+  font-size: 75%;
+}
+
+#food-list .button {
+  padding: 10px;
+  border: 1px dotted #C1D6D5;
+  background-color: #DFEFEF;
+}
+
+ul, ol {
+margin-left: 0;
+}
+
+#footer {
+  padding: 200px 0 10px 0;
+}
+
+
+.menu li {
+  float: left;
+  margin: 0 20px 0 0;
+  display: inline;
 }

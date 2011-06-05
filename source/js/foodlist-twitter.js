@@ -1,4 +1,3 @@
 $(document).ready(function(){
-
-moveFood.showFoodList();
+  moveFood.loadTwitterList();
 });

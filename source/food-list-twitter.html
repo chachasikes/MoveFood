@@ -8,30 +8,20 @@
     <link rel="stylesheet" href="css/style.css" type="text/css" />
     <script type="text/javascript" src="js/jquery-1.5.min.js"></script>
     <script type="text/javascript" src="js/movefood.js"></script>
-    <script type="text/javascript" src="js/foodlist.js"></script>
-
+    <script type="text/javascript" src="js/foodlist-twitter.js"></script>
   </head>
   <body>
     <div id="container" class="section container_12">
-      <div id="header">
-        <div class="logo  grid_6 alpha"><h1>MoveFood</h1></div>
-        <div class="grid_6 omega">
-            <a href="index.html" class="login">Home</a> |
-            <a href="#" class="login" onClick="return moveFood.showLogin()">Login</a> |
-            <a href="register.html" class="login">Create Account</a>
-        </div>
-        <div class="clear"></div>
-        <div id="page-title" class="alpha"><h2>Available Food</h2></div>
+      <div id="header" class="grid_12">
+        <div class="logo"><h1><a href="index.html">MoveFood: Post to Twitter</a></h1></div>
+        <div id="page-title"><h2>Available Food</h2></div>
       </div>
       <div id="content"  class="grid_12">
         <table id="food-list">
             <tr>
                 <th>Food Item Name</th>
-                <th>Location</th>
-                <th>Perishable</th>
-                <th>Expiration Date</th>
+                <th>Tweet</th>
                 <th>Status</th>
-                <th>Share</th>
             </tr>
         </table>
       </div>
@@ -41,5 +31,6 @@
           <li>Created at <a href="#">Random Hacks of Kindness #3</a></li>
         </ul>
       </div>
-    </div>
+  </div>
+  </div>
 </html>

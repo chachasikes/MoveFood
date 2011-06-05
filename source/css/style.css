@@ -111,6 +111,10 @@ a:active, a:visited {
 
 }
 
+a.active {
+  color: #666;
+}
+
 .user-image {
 
 }

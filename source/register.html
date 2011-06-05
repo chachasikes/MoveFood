@@ -13,10 +13,15 @@
   <body>
     <div id="container" class="section container_12">
       <div id="header">
-        <div class="logo"><h1><a href="index.html">MoveFood</a></h1></div>
-        <div id="page-title"><h2>Create an Account</h2></div>
-        <a href="index.html" class="login">Home</a> |
-        <a href="register.html" class="login">Create Account</a>
+        <div class="logo grid_6 alpha"><h1><a href="index.html">MoveFood</a></h1></div>
+        <div class="grid_6 omega">
+          <ul class="menu">
+            <li id="loginlink"><a href="#" class="login" onClick="return moveFood.showLogin()">Login</a></li>
+            <li id="welcomeuser"><a href="#" class="login">Welcome ...</a></li>
+            <li id="createaccount"><a href="register.html" class="login active">Create Account</a></li>
+            <li id="logoutlink"><a href="#" onclick="return moveFood.logout()" class="login">logout</a></li>
+          </ul>
+                  <div id="page-title"><h2>Create an Account</h2></div>
       </div>
       <div id="content">
         <form id="register-form" accept-charset="UTF-8">

@@ -311,12 +311,6 @@ moveFood.showFoodAjax = function() {
  * Show list of food items.
  */
 moveFood.showList = function(results) {
-<<<<<<< HEAD
-  console.log(results);
-
-=======
-console.log(results);
->>>>>>> baccb2e45d1bd05da4b7c47ccbdb9d0ef5313092
   if(results === undefined) {
    results =  dataSampleFoodItem;
   }
@@ -340,7 +334,7 @@ console.log(results);
             + "<td><div class='tweet button'>" +  moveFood.tweetMessage(results[i]) + "</div></td>"
             + "<td><div class='text button'>" +  moveFood.textMessage(results[i]) + "</div></td>"
             + "</tr>";
-            
+
 /* moveFood.requireAuthentication             */
     $('#food-list').append(row);
   }
@@ -438,23 +432,25 @@ moveFood.tweetMessage = function(result) {
  */
 moveFood.textMessage = function(result) {
    moveFood.constructTweet(result);
-/*
   var maxLength = 140 - (result.tweet.length + 1);
   if (result.tweet.length > maxLength) {
     result.tweet = result.tweet.substr(0, (maxLength - 3)) + '...';
   }
-*/
 
   console.log(result);
-  result.textLink = '<a href="' + moveFood.textAction(result) + '"'+' class="send-text">Text/SMS</a>';
+  
+
+  result.textLink = '<a href="#" onclick="return moveFood.textAction(result)" class="send-text">Text/SMS</a>';
   return result.textLink;
 }
 
 moveFood.textAction = function(result) {
+
   var token = "02e46a20ee5cf243a264d9883ad078d01ee70b878ab1b110b63aa2e5aeacf02c09b702bb898dc604bc41ed02";
   var number = "4154259325";
   var name = "Chach+Sikes";
   var msg = result.tweet;
+/*
   console.log(result);
   var tropo = "https://api.tropo.com/1.0/sessions";
   tropo += "?action=create";
@@ -462,17 +458,41 @@ moveFood.textAction = function(result) {
   tropo += "&numberToDial=" + number;
   tropo += "&customerName=" + name;
   tropo += "&msg=" + encodeURIComponent(msg);
+*/
 
 
+  var smsifiedNumber = "7344189228";
   var address = "address=" + number;
   var message = "&message=" + msg;
 
-  var smsified = "https://api.smsified.com/v1/smsmessaging/outbound/" + address + message + "/requests";
+  var smsified = "https://api.smsified.com/v1/smsmessaging/outbound/" + smsifiedNumber + "/requests";
   console.log(smsified);
-  var tropoObj = {
-    
-  };
+  
+  var smsifiedObj = {
+   "resourceReference":{
+      "resourceURL":
+        smsified + address + message
+    }
+   };
+
+  
+  $.ajax({
+    url: smsified + address + message,
+    dataType: 'json',
+    method: "post",
+/*     data: smsifiedObj, */
+    success: moveFood.textMessageSent,
+    error: moveFood.error,
+  });
+/*
+
 
   console.log(tropo);
   return tropo;
+*/
+  return '#';
+};
+
+moveFood.textMessageSent = function () {
+  console.log("text message sent");
 };

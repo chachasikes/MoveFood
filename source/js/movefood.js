@@ -66,11 +66,7 @@ console.log("added item");
 */
 };
 
-moveFood.showList = function(results) {
-    for (i in results) {
-        $('#itemslist').append("<li>" + results[i].name + "</li>");
-    }
-}
+
 
 moveFood.registerResponse = function() {
   console.log("added user");
@@ -142,12 +138,12 @@ moveFood.login = function() {
 moveFood.validateLogin = function(response) {
     console.log(response);
     if (response.valid == "true") {
-        setTimeout(loadData, 0);
-        hideLogin();
+        moveFood.loadData();
+        moveFood.hideLogin();
         return false;
     }
     else {
-        failedLogin();
+        moveFood.failedLogin();
     }
 }
 
@@ -159,12 +155,68 @@ moveFood.failedLogin = function() {
 
 moveFood.loadData = function() {
     $.ajax({
-        url: "http://www.movefood.krangarajan.com/movefood/index.php/list_claims",
+        url: "http://www.movefood.krangarajan.com/movefood/index.php/login/logged_in",
         data: "",
-        method: "post",
-        success: function(results) {moveFood.showList(results);},
+        success: function(results) {moveFood.showUser(results);},
         error: function(result) { moveFood.error() },
         dataType: "json"});
+}
+
+moveFood.showUser = function(user) {
+    console.log(user);
+    if (user.user != "false") {
+        $.ajax({
+            url: "http://www.movefood.krangarajan.com/movefood/index.php/login/get_user_data",
+            data: "",
+            success: function(results) {moveFood.renderUserBlock(results);},
+            error: function(result) { moveFood.error() },
+            dataType: "json"});
+        $.ajax({
+            url: "http://www.movefood.krangarajan.com/movefood/index.php/list_items",
+            data: "",
+            success: function(results) {moveFood.renderItems(results);},
+            error: function(result) { moveFood.error() },
+            dataType: "json"});
+        $.ajax({
+            url: "http://www.movefood.krangarajan.com/movefood/index.php/list_claims",
+            data: "",
+            success: function(results) {moveFood.renderClaims(results);},
+            error: function(result) { moveFood.error() },
+            dataType: "json"});
+    } else {
+        moveFood.logOut();
+    }
+}
+
+moveFood.logOut = function() {
+    // ajax logout
+    // hide user specific items
+}
+
+moveFood.renderUserBlock = function(user) {
+    if (user != undefined) {
+        $('#username').text(user.username);
+        $('#welcomeuser').text("Welcome " + user.username + " | ");
+        $('#userlocation').text(user.location_description + ": " + user.latitude + ", " + user.longitude);
+        $('#userbio').text(user.description);
+        $('#userdetails').show();
+        $('#loginlink').hide();
+        $('#welcomeuser').show();
+    }
+}
+
+moveFood.renderItems = function(results) {
+    for (i in results) {
+        $('#itemslist').append("<li>" + results[i].name + "</li>");
+    }
+    $('#items').show();
+}
+
+moveFood.renderClaims = function(results) {
+    for (i in results) {
+        $('#claimslist').append("<li>" + results[i].name + "</li>");
+    }
+    $('#claims').show();
 }
 
 moveFood.error = function () {

@@ -1,0 +1,9 @@
+.form-item {
+  width: 30%;
+  padding: 20px 0;
+}
+
+.form-item label {
+  display: inline-block;
+  vertical-align: top;
+}

@@ -11,3 +11,26 @@
 .label {
   font-weight: bold;
 }
+
+table#food-list th {
+  width: 150px;
+
+}
+
+table th,
+table td {
+  vertical-align: top;
+  text-align: left;
+}
+
+table, th, td {
+border: 1px solid black;
+}
+
+table {
+border-collapse:collapse;
+}
+
+table,th, td {
+border: 1px solid black;
+}

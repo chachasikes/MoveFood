@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta charset="utf-8">
-    <title>MoveFood - User Details</title>
+    <title>MoveFood</title>
     <link rel="stylesheet" href="css/fluid_grid.css" type="text/css" />
     <link rel="stylesheet" href="css/style.css" type="text/css" />
     <script type="text/javascript" src="js/jquery-1.5.min.js"></script>
@@ -16,7 +16,7 @@
         }
         $(document).ready(function(){
             $.ajax({
-                url: "http://www.movefood.krangarajan.com/movefood/index.php/list_items",
+                url: "http://www.movefood.krangarajan.com/movefood/index.php/list_claims",
                 data: "",
                 method: "post",
                 success: function(results) {showList(results);},
@@ -28,7 +28,7 @@
 <body>
 <div id="container" class="section container_12">
     <div id="header">
-        <div class="logo"><h1>MoveFood - User Details</h1></div>
+        <div class="logo"><h1>MoveFood</h1></div>
     </div>
     <div id="content">
         <div id="userdetails">

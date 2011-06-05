@@ -152,7 +152,7 @@ moveFood.hideLogin = function() {
 
 moveFood.showLogin = function() {
     $('#login').show();
-
+    $('#user_name').focus();
     return false;
 }
 
@@ -206,7 +206,7 @@ moveFood.getLoggedInUser = function(callback) {
 }
 
 moveFood.loadData = function() {
-    var user = getLoggedInUser(moveFood.showUser);
+    var user = moveFood.getLoggedInUser(moveFood.showUser);
 }
 
 moveFood.isLoggedIn = function(user) {
@@ -288,7 +288,7 @@ moveFood.error = function () {
 };
 
 moveFood.requireAuthentication = function() {
-    user = getLoggedInUser(function (results) {return results;});
+    user = moveFood.getLoggedInUser(function (results) {return results;});
     if (moveFood.isLoggedIn(user)) {
         return true;
     } else  {

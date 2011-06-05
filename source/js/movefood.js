@@ -466,34 +466,19 @@ moveFood.textAction = function(result) {
   var smsifiedObj1 = {
    "resourceReference":{
       "resourceURL":
-        smsified + address + message;
-   }
-}
+        smsified + address + message
+    }
+   };
+
   
-    $.ajax({
+  $.ajax({
     url: smsified + address + message,
     dataType: 'json',
     method: "post",
     success: moveFood.textMessageSent,
     error: moveFood.error,
   });
-  
-  var smsifiedObj2 = {
-  "deliveryInfoNotification": {
-    "deliveryInfo": {
-      "address": address, 
-      "code": "0", 
-/*       "createdDateTime": "2011-05-12T00:55:25.313Z",  */
-      "deliveryStatus": "DeliveredToNetwork", 
-      "direction": "outbound", 
-      "message": msg, 
-/*       "messageId": "3e5caf2782cb2eb310878b03efec5083",  */
-      "parts": "1", 
-      "senderAddress": smsifiedNumber, 
-/*       "sentDateTime": "2011-05-12T00:55:34.359Z" */
-    }
-  }
-}
+
 
   console.log(tropo);
   return tropo;

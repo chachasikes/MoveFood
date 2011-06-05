@@ -36,7 +36,7 @@
 
                 <div id="actions" class="user-buttons grid_12 alpha">
                   <div id="haveaction" class="grid_3 button"><a href="add-item.html" onclick="moveFood.requireAuthentication($('#haveaction a').attr('href')); return false;">I have</a></div>
-                  <div id="helpaction" class="grid_3 button"><a href="food-list.html">I can help</a></div>
+                  <div id="helpaction" class="grid_3 button"><a href="food-list.html" onclick="moveFood.requireAuthentication($('#haveaction a').attr('href')); return false;">I can help</a></div>
                 </div>
                 
             <div id="lists" class="grid_12 alpha omega">

@@ -16,6 +16,6 @@ class Createitem extends CI_Controller {
 		$location_description = $this->input->post('location_description');
 		$notes = $this->input->post('notes');
     $contact = $this->input->post('contact_detail');
-		$this->claim_model->insert_item($food_name,$description,$quantity,$perishable,$expiration,$location_description,$location,$notes,$contact);
+		$this->claim_model->insert_item($food_name,$description,$quantity,$perishable,$expiration,$location_description,$notes);
 	}
 }

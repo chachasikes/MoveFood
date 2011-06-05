@@ -531,7 +531,7 @@ moveFood.claim = function(id) {
     "item_id":id
  }
  $.ajax({
-    	url: "http://movefood.krangarajan.com/movefood/index.php/claim",
+    	url: "http://www.movefood.krangarajan.com/movefood/index.php/claim",
       type: "POST",
       dataType: 'json',
       data: data,

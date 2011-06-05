@@ -51,14 +51,14 @@ var dataSampleFoodItem = {
  */
 
 moveFood.error = function (error) {
-  console.log("Error");
-  console.log(error);
+/*   console.log("Error"); */
+/*   console.log(error); */
 };
 
 
 /* USER LOGIN & REGISTER FUNCTIONS */
 moveFood.registerResponse = function() {
-  console.log("added user");
+/*   console.log("added user"); */
 };
 
 moveFood.register = function() {
@@ -82,7 +82,7 @@ moveFood.register = function() {
       "contact":item.contact,
       "description":item.description
     }
-    console.log(item);
+/*     console.log(item); */
 
     // Insert values.
     $.ajax({
@@ -113,7 +113,7 @@ moveFood.login = function() {
         "username":$('form#login-form #user_name').val(),
         "password":$('form#login-form #user_password').val()
     };
-    console.log(userData);
+/*     console.log(userData); */
     $.ajax({
         url: "http://www.movefood.krangarajan.com/movefood/index.php/login",
         dataType: 'json',
@@ -126,7 +126,7 @@ moveFood.login = function() {
 };
 
 moveFood.validateLogin = function(response) {
-    console.log(response);
+/*     console.log(response); */
     if (response.valid == "true") {
         moveFood.loadData();
         moveFood.hideLogin();
@@ -162,7 +162,7 @@ moveFood.isLoggedIn = function (user) {
     return user != undefined && user.user;
 }
 moveFood.showUser = function(user) {
-  console.log(user);
+/*   console.log(user); */
   if (moveFood.isLoggedIn(user)) {
       $.ajax({
           url: "http://www.movefood.krangarajan.com/movefood/index.php/login/get_user_data",
@@ -271,8 +271,8 @@ moveFood.addItemSubmit = function() {
     "default_contact": $('form#add-item-block-form #food_default_contact:checked').val()
   }
 
-  console.log("adding Item Food");
-  console.log(data);
+/*   console.log("adding Item Food"); */
+/*   console.log(data); */
 
   // Insert values.
   $.ajax({
@@ -288,7 +288,7 @@ moveFood.addItemSubmit = function() {
 
 moveFood.addItem = function() {
   window.location.href = 'http://www.movefood.krangarajan.com/index.html';
-  console.log("added item");
+/*   console.log("added item"); */
 };
 
 moveFood.requireAuthentication = function(url) {
@@ -414,7 +414,7 @@ moveFood.constructTweet = function(result) {
     tweet +=  '[loc' + result.location.substr(0, 8) +']';
   }
 
-  console.log(result);
+/*   console.log(result); */
   result.tweet = tweet;
 };
 
@@ -422,7 +422,7 @@ moveFood.constructTweet = function(result) {
  * Make tweet.
  */
 moveFood.tweetMessage = function(result) {
-  console.log(result);
+/*   console.log(result); */
   moveFood.constructTweet(result);
 
   var maxLength = 140 - (result.tweet.length + 1);
@@ -433,7 +433,7 @@ moveFood.tweetMessage = function(result) {
 
   result.tweetThisLink = 'http://twitter.com/share?url=' + encodeURIComponent(result.tweetLink) + '&text=' + encodeURIComponent(result.tweet);
 
-  console.log(result);
+/*   console.log(result); */
   result.tweetStatus = '<a href="' + result.tweetThisLink +'" target="_blank"'+'>Tweet</a>';
   return result.tweetStatus;
 }
@@ -448,7 +448,7 @@ moveFood.textMessage = function(result) {
     result.tweet = result.tweet.substr(0, (maxLength - 3)) + '...';
   }
 
-  console.log(result);
+/*   console.log(result); */
   
 
   result.textLink = '<a href="#" class="send-text">Text/SMS</a>';
@@ -477,7 +477,7 @@ moveFood.textAction = function(result) {
   var message = "&message=" + msg;
 
   var smsified = "https://api.smsified.com/v1/smsmessaging/outbound/" + smsifiedNumber + "/requests";
-  console.log(smsified);
+/*   console.log(smsified); */
   
 /*
   var smsifiedObj = {
@@ -525,7 +525,7 @@ moveFood.textAction = function(result) {
 };
 
 moveFood.textMessageSent = function () {
-  console.log("text message sent");
+/*   console.log("text message sent"); */
 };
 
 moveFood.claim = function(id) {

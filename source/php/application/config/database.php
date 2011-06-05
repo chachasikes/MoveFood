@@ -41,9 +41,9 @@
 $active_group = 'default';
 $active_record = TRUE;
 
-$db['default']['hostname'] = 'localhost';
-$db['default']['username'] = 'karthik';
-$db['default']['password'] = 'th1sisthepassword!!';
+$db['default']['hostname'] = 'mysql.krangarajan.com';
+$db['default']['username'] = 'movefood';
+$db['default']['password'] = 'M0VEF00D!23';
 $db['default']['database'] = 'movefood';
 $db['default']['dbdriver'] = 'mysql';
 $db['default']['dbprefix'] = '';

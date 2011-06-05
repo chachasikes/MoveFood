@@ -112,34 +112,59 @@ moveFood.register = function() {
     return false;
 };
 
+moveFood.hideLogin = function() {
+    $('#login').hide();
+    return false;
+}
+
 moveFood.showLogin = function() {
     $('#login').show();
     return false;
 }
 
-moveFood.login = function(user) {
+moveFood.login = function() {
+    var userData = {
+        "username":$('form#login-form #user_name').val(),
+        "password":$('form#login-form #user_password').val()
+    };
+    console.log(userData);
     $.ajax({
         url: "http://www.movefood.krangarajan.com/movefood/index.php/login",
         dataType: 'json',
-        method: "post",
-        data: user,
-        success: moveFood.validateLogin(response),
+        type: "POST",
+        data: userData,
+        success: moveFood.validateLogin,
         error: moveFood.error
     });
     return false;
 }
 
 moveFood.validateLogin = function(response) {
-    if (response.valid) {
+    console.log(response);
+    if (response.valid == "true") {
+        setTimeout(loadData, 0);
+        hideLogin();
+        return false;
     }
     else {
-        moveFood.failedLogin();
+        failedLogin();
     }
 }
 
 moveFood.failedLogin = function() {
     $('#login').show();
     $('#failedlogin').show();
+    return false;
+}
+
+moveFood.loadData = function() {
+    $.ajax({
+        url: "http://www.movefood.krangarajan.com/movefood/index.php/list_claims",
+        data: "",
+        method: "post",
+        success: function(results) {moveFood.showList(results);},
+        error: function(result) { moveFood.error() },
+        dataType: "json"});
 }
 
 moveFood.error = function () {

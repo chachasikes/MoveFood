@@ -7,7 +7,6 @@ class List_items extends CI_Controller {
 	}
 	
 	function index(){
-		$id = $this->input->post("id");
-		$this->claim_model->list_items($id);
+		$this->claim_model->list_items();
 	}
 }

@@ -16,8 +16,10 @@
         <div class="logo grid_6 alpha"><h1><a href="index.html">MoveFood</a></h1></div>
         <div class="grid_6 omega">
           <ul class="menu">
-            <li><a href="#" class="login" onClick="return moveFood.showLogin()">Login</a></li>
-            <li><a href="register.html" class="login">Create Account</a></li>
+            <li id="loginlink"><a href="#" class="login" onClick="return moveFood.showLogin()">Login</a></li>
+            <li id="welcomeuser"><a href="#" class="login">Welcome ...</a></li>
+            <li id="createaccount"><a href="register.html" class="login">Create Account</a></li>
+            <li id="logoutlink"><a href="#" onclick="return moveFood.logout()" class="login">logout</a></li>
           </ul>
         </div>
         <div id="content" class="grid_12 alpha">

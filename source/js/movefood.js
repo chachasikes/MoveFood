@@ -448,7 +448,7 @@ moveFood.textMessage = function(result) {
 moveFood.textAction = function(result) {
 
   var token = "02e46a20ee5cf243a264d9883ad078d01ee70b878ab1b110b63aa2e5aeacf02c09b702bb898dc604bc41ed02";
-  var number = "4154259325";
+  var number = "14154259325";
   var name = "Chach+Sikes";
   var msg = result.tweet;
 /*
@@ -462,7 +462,7 @@ moveFood.textAction = function(result) {
 */
 
 
-  var smsifiedNumber = "7344189228";
+  var smsifiedNumber = "17344189228";
   var address = "address=" + number;
   var message = "&message=" + msg;
 
@@ -498,9 +498,11 @@ moveFood.textAction = function(result) {
   });  
 
   
-    $.ajax({
-    url: 'http://api.smsified.com/v1/smsmessaging/outbound/' + smsifiedNumber + '/requests/',
-    dataType: 'json',
+  $.ajax({
+    url: 'https://api.smsified.com/v1/smsmessaging/outbound/' + smsifiedNumber + '/requests',
+/*     ?address=' + number + '&message=' + msg2 */
+/*           https://api.smsified.com/v1/smsmessaging/outbound/{senderAddress}/requests */
+    dataType: 'jsonp',
     data: post_data,
     type: "post",
     success: moveFood.textMessageSent,

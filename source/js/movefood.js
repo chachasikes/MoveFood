@@ -222,41 +222,20 @@ moveFood.loadTwitterList = function() {
 };
 
 moveFood.tweetMessage = function(result) {
+moveFood.constructTweet(result);
   var maxLength = 140 - (result.tweet.length + 1);
   console.log(maxLength);
   if (result.tweet.length > maxLength) {
     result.tweet = result.tweet.substr(0, (maxLength - 3)) + '...';
   }
 
-  result.tweetThisLink = 'http://twitter.com/share?url=' + encodeURIComponent(result.tweetLink) + '&text=' + encodeURIComponent(result.tweetLink);
+  result.tweetThisLink = 'http://twitter.com/share?url=' + encodeURIComponent(result.tweetLink) + '&text=' + encodeURIComponent(result.tweet);
 
   console.log(result);
   result.tweetStatus = '<a href="' + result.tweetThisLink +'" target="_blank"'+'>Tweet</a>'
   return result.tweetStatus;
 }
 
-moveFood.createTwitterRow = function(results) {
-  for (i in results) {
-    console.log(results);
-
-    if(results[i].perishable === 0) {
-      results[i].perishable_text = "Yes";
-    }
-    else {
-      results[i].perishable_text = "No";
-    }
-
-   
-    moveFood.constructTweet(results[i]);
-      
-    var row = "<tr class='fooditem-id-" + results[i].item_id + "'>"
-            + "<td class='food-name'>" + results[i].name + "</td>"
-            + "<td class='tweet'>" + results[i].tweet + "</td>"
-            + "<td><div class='claim button'>" +  moveFood.tweetMessage(results[i]) + "</div></td>"
-            + "</tr>";
-    $('#food-list').append(row);
-  }
-};
 
 moveFood.constructTweet = function(result) {
   var tweet = "";
@@ -295,4 +274,43 @@ moveFood.constructTweet = function(result) {
 
   console.log(result);
  result.tweet = tweet;
+};
+
+
+moveFood.showFoodList = function() {
+    $.ajax({
+      url: "http://www.movefood.krangarajan.com/movefood/index.php/list_items",
+      data: "",
+      method: "post",
+      success: function(results) {moveFood.showList(results);},
+      error: function(result) { alert("failed") },
+      dataType: "json"
+    });
+};
+  
+moveFood.showList = function(results) {
+    
+  for (i in results) {
+    console.log(results);
+      if(results[i].perishable === 0) {
+      results[i].perishable_text = "Yes";
+      }
+      else {
+      results[i].perishable_text = "No";
+      }
+
+      var toolTip = "";
+
+  
+      var row = "<tr class='fooditem-id-" + results[i].item_id + "'>"
+              + "<td class='food-name'>" + results[i].name + "</td>"
+              + "<td class='location'>" + results[i].location + "</td>"
+              + "<td class='perisable'>" + results[i].perishable_text + "</td>"
+              + "<td class='expiration'>" + results[i].expiration + "</td>"
+              + "<td><div class='claim button'><a href='#'>Claim this item</a></div></td>"
+              + "<td><div class='tweet button'>" +  moveFood.tweetMessage(results[i]) + "</div></td>"
+              + "</tr>";
+      $('#food-list').append(row);
+    }
+
 };

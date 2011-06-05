@@ -10,14 +10,26 @@ https://docs.google.com/a/codeforamerica.org/document/d/1wO0oTQdSs0vdKbYqntNT3Uq
 
 ### Still to do - sat 11"15 pm
 
-* claim button
-* show item load data
-* check food list loads data
-* add data (chach) inserts data
+* claim button needs to work (RC)
+
+* Text this button (CHACH)
+* location fields (CHACH)
+* add item needs to work (RC)
+
+* check food list loads data (CHACH)
+* add data (chach) inserts data (CHACH)
+
+* food list table shows rows with all the correct data
+* items i have (RC)
+* list needs to load (RC)
+* login not transparent (RC)
+
+
+* map?
+
+* show item load data 
 * load one data item
-* food list table shows rows
-* items i have
-* i can help button?
+* edit item?
 
 ### Current Pages
 * index.html (is the users page, with a login)

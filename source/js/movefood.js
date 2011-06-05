@@ -202,7 +202,7 @@ moveFood.showItem = function(data) {
  */
 moveFood.addItemSubmit = function() {
   var data = {
-    "name": $('form#add-item-block-form #food_name').val(),
+    "food_name": $('form#add-item-block-form #food_name').val(),
     "description": $('form#add-item-block-form #food_description').val(),
     "quantity": $('form#add-item-block-form #food_quantity').val(),
     "units": $('form#add-item-block-form #food_units').val(),
@@ -215,7 +215,7 @@ moveFood.addItemSubmit = function() {
     "default_contact": $('form#add-item-block-form #food_default_contact:checked').val()
   }
 
-  console.log("adding Item");
+  console.log("adding Item Food");
   console.log(data);
 
   // Insert values.
@@ -286,7 +286,10 @@ moveFood.showList = function(results) {
             + "<td class='expiration'>" + results[i].expiration + "</td>"
             + "<td><div class='claim button'><a href='#'>Claim this item</a></div></td>"
             + "<td><div class='tweet button'>" +  moveFood.tweetMessage(results[i]) + "</div></td>"
+            + "<td><div class='text button'>" +  moveFood.textMessage(results[i]) + "</div></td>"
             + "</tr>";
+            
+/* moveFood.requireAuthentication             */
     $('#food-list').append(row);
   }
 };

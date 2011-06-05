@@ -508,11 +508,11 @@ moveFood.textAction = function(result) {
   	'senderAddress': smsifiedNumber
   });  
 
+/*
+@TODO This needs to go to a php callback. 
   
   $.ajax({
     url: 'https://api.smsified.com/v1/smsmessaging/outbound/' + smsifiedNumber + '/requests',
-/*     ?address=' + number + '&message=' + msg2 */
-/*           https://api.smsified.com/v1/smsmessaging/outbound/{senderAddress}/requests */
     dataType: 'json',
     type: "POST",
     data: post_data,
@@ -520,6 +520,7 @@ moveFood.textAction = function(result) {
     success: moveFood.textMessageSent,
     error: moveFood.error,
   });
+*/
 
   return false;
 };

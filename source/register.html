@@ -1,0 +1,51 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>MoveFood</title>
+    <link rel="stylesheet" href="css/fluid_grid.css" type="text/css" />
+    <link rel="stylesheet" href="css/style.css" type="text/css" />
+    <script type="text/javascript" src="js/jquery-1.5.min.js"></script>
+    <script type="text/javascript" src="js/movefood.js"></script>
+    <script type="text/javascript" src="js/register.js"></script>
+  </head>
+  <body>
+    <div id="container" class="section container_12">
+      <div id="header">
+        <div class="logo"><h1>MoveFood</h1></div>
+        <div id="page-title"><h2>Register</h2></div>
+      </div>
+      <div id="content">
+        <form id="register-form" accept-charset="UTF-8">
+          <div class="form-item">
+            <label for="field_name_value">Name</label>
+            <input type="text" id="user_name" name="field_name_value" value="" size="25" maxlength="128" />
+          </div>
+        
+          <div class="form-item">
+            <label for="field_password_value">Password</label>
+            <input type="password" id="user_password" name="field_password_value" value="" size="25" maxlength="128" />
+            <br />(Note: this site is totally insecure.)
+          </div>
+          
+          <div class="form-item">
+            <label for="field_location_value">Location</label>
+            <textarea class="text-full form-textarea" id="user_location" name="field_location_value" cols="60" rows="5"></textarea>
+          </div>  
+
+          <div class="form-item">
+            <label for="field_bio_value">Contact</label>
+            <textarea class="text-full form-textarea" id="user_contact" name="field_contact_value" cols="60" rows="5"></textarea>
+          </div>  
+          
+          <div class="form-button">
+            <input type="submit" class="form-submit" value="Submit" name="op" id="edit-submit">
+          </div>
+          
+        </form>
+      </div>
+      <div id="footer">
+      </div>
+  </div>
+  </div>
+</html>

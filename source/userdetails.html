@@ -9,7 +9,10 @@
     <script type="text/javascript" src="js/movefood.js"></script>
     <script type="text/javascript">
         function showList(results) {
-            console.log(results);
+            for (i in results) {
+                console.log(results[i]);
+                $('#itemslist').append("<li>" + results[i].name + "</li>");
+            }
         }
         $(document).ready(function(){
             $.ajax({

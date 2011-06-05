@@ -66,6 +66,12 @@ console.log("added item");
 */
 };
 
+moveFood.showList = function(results) {
+    for (i in results) {
+        $('#itemslist').append("<li>" + results[i].name + "</li>");
+    }
+}
+
 moveFood.error = function () {
   console.log("Error");
 };

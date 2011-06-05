@@ -8,19 +8,14 @@
     <script type="text/javascript" src="js/jquery-1.5.min.js"></script>
     <script type="text/javascript" src="js/movefood.js"></script>
     <script type="text/javascript">
-        function showList(results) {
-            for (i in results) {
-                console.log(results[i]);
-                $('#itemslist').append("<li>" + results[i].name + "</li>");
-            }
-        }
+
         $(document).ready(function(){
             $.ajax({
                 url: "http://www.movefood.krangarajan.com/movefood/index.php/list_claims",
                 data: "",
                 method: "post",
-                success: function(results) {showList(results);},
-                error: function(result) { alert("failed") },
+                success: function(results) {moveFood.showList(results);},
+                error: function(result) { moveFood.error() },
                 dataType: "json"});
         });
     </script>
@@ -40,16 +35,17 @@
             </div>
         </div>
         <div id="actions">
-            <div id="haveaction" class="push_2 grid_4"><a href="add-item.html">I have</a></div>
-            <div id="helpaction" class="push_2 grid_4"><a href="#">I can help</a></div>
+            <div id="haveaction" class="grid_6"><a href="add-item.html">I have</a></div>
+            <div id="helpaction" class="grid_6"><a href="food-list.html">I can help</a></div>
         </div>
         <div id="lists">
-            <div id="items" class="push_2 grid_4">
+            <div id="items" class="grid_6">
+                <div>Items I have listed</div>
                 <ul id="itemslist">
-                    <li>So far.</li>
                 </ul>
             </div>
-            <div id="claims" class="push_2 grid_4">
+            <div id="claims" class="grid_6">
+                <div>Items I have claimed</div>
                 <ul id="claimslist">
                 </ul>
             </div>

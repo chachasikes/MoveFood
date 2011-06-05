@@ -18,15 +18,11 @@ class Login extends CI_Controller {
 		$logged_in = $this->login_model->log_in($username,sha1($password));
 		if($logged_in){
 			$data = array("valid"=>"true");
-//            print_r($_GET);
-//            echo $_GET['callback'] . '('.json_encode($data).')';
 			echo json_encode($data);
 		}
 		else{
 			$data = array("valid"=>"false");
-//			print_r($_GET);
-//            echo $_GET['callback'] . '('.json_encode($data).')';
-            echo json_encode($data);
+			echo json_encode($data);	
 		}
 	}
 	
@@ -36,21 +32,8 @@ class Login extends CI_Controller {
 		$this->session->sess_destroy();
 	} 
 	
-	public function logged_in(){
-		if(!($data = $this->login_model->is_logged_in())){
-			$data = array("user"=>$username);
-			echo json_encode($data);
-			return;			
-		}
-		echo json_encode($data);
-	}
-	
 	public function test_login(){
 		$this->load->view("testlogin");
-	}
-	
-	public function get_user_data(){
-		$this->login_model->user_details();
 	}
 }
 

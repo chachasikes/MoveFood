@@ -8,71 +8,50 @@ class login_model extends CI_Model {
 		$this->load->database();
 	}
 	
-	public function is_logged_in(){
+	/*public function is_logged_in(){
 		$user = $this->session->userdata('username');
 		$session = $this->session->userdata('session_id');
 		$ip_address = $this->session->userdata('ip_address');
-		
-		$username = $this->session->userdata('user');
+		$logged_in = $this->session->userdata('logged_in');
 		if(!($session)){
-			
 			return false;
-			
 		}		
 		if(!($user)){
-			
 			return false;
 		}
-		
-		
-		$data = array("user"=>$username);
-		return $data;
-	}
+		if(!($logged_in)){
+			return false;
+		}
+		$sql = "select status from users where hid=?";
+		$query = $this->db->query($sql,array($user));
+		$row = $query->row();
+		if($row->status==0){
+			return false;
+		}
+		return true;
+	}*/
 	
-	public function log_in($user,$password){		
+	public function log_in($user,$password){
+		
 		$sql = "select username,password,hid from users where username=\"$user\" and password=\"$password\"";
 		$query = $this->db->query($sql);
-			
+		
 		if($query->num_rows()==0){
 			return false;
 		}
+		
 		$row = $query->row();
 		$hid = $row->hid;
-		
 		$this->session->set_userdata('username',$hid);
 		$this->session->set_userdata('logged_in',1);
-		$this->session->set_userdata('user',$user);
-		$hid = $this->session->userdata('username');
-		
-		
+		$this->db->query($sql);
 		return true;
 	}
 	
-	public function register($username,$password,$latitude,$longitude,$description,$contact,$location_description){
-		$sql = "insert into users(username,password,hid,latitude,longitude,bio,contact,location_description) values (?,?,?,?,?,?,?,?)";
-		$this->db->query($sql,array("$username",sha1("$password"),sha1("$username"),$latitude,$longitude,"$description","$contact","$location_description"));
+	public function register($username,$password,$latitude,$longitude,$description){
+		$sql = "insert into users(username,password,hid,latitude,longitude,bio) values (?,?,?,?,?,?)";
+		$this->db->query($sql,array("$username",sha1("$password"),sha1("$username"),$latitude,$longitude,"$description"));
 		
-	}
-	
-	public function user_details(){
-		$hid = $this->session->userdata("username");
-		$sql = "select * from users where hid=\"$hid\"";
-		$query = $this->db->query($sql);
-		
-		if($query->num_rows()==0){
-			return false;
-		}
-		
-		$row = $query->row();
-		
-		$user["username"] = $row->username;
-		$user["latitude"] = $row->latitude;
-		$user["longitude"] = $row->longitude;
-		$user["contact"] = $row->contact;
-		$user["description"] = $row->bio;
-		$user["location_description"] = $row->location_description;
-		
-		echo json_encode($user);
 	}
 }
 ?>

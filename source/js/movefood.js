@@ -228,9 +228,10 @@ moveFood.tweetMessage = function(result) {
     result.tweet = result.tweet.substr(0, (maxLength - 3)) + '...';
   }
 
-  result.twitterLink = 'http://twitter.com/home?status=' + "test" /* + encodeURIComponent(result.tweet) */;
+  result.tweetThisLink = 'http://twitter.com/share?url=' + encodeURIComponent(result.tweetLink) + '&text=' + encodeURIComponent(result.tweetLink);
+
   console.log(result);
-  result.tweetStatus = '<a href="' + result.twitterLink +'" target="_blank"'+'>Tweet</a>'
+  result.tweetStatus = '<a href="' + result.tweetThisLink +'" target="_blank"'+'>Tweet</a>'
   return result.tweetStatus;
 }
 
@@ -259,9 +260,9 @@ moveFood.createTwitterRow = function(results) {
 
 moveFood.constructTweet = function(result) {
   var tweet = "";
-  result.tweetLink = "http://mv.fd/123456?id=" + result.item_id;
+  result.tweetLink = "http://localhostblah.com/showItem?id=" + result.item_id;
   if(result.name !== undefined) {
-    tweet += '<a href="' + result.tweetLink + '">' + result.name + '</a> ';
+    tweet += result.name;
   }
   if (result.quantity !== undefined) {
     tweet += "[unit: " + result.quantity;
@@ -286,11 +287,12 @@ moveFood.constructTweet = function(result) {
     tweet += result.latitude;
     tweet += ",";
     tweet += result.longitude;
-    tweet += "}";
+    tweet += ")";
   }
   else if (result.location !== undefined){
     tweet +=  '[loc' + result.location.substr(0, 8) +']';
   }
+
   console.log(result);
  result.tweet = tweet;
 };

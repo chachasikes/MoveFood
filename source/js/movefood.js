@@ -456,15 +456,28 @@ moveFood.textAction = function(result) {
   tropo += "&customerName=" + name;
   tropo += "&msg=" + encodeURIComponent(msg);
 
-
+  var smsifiedNumber = 7344189228;
   var address = "address=" + number;
   var message = "&message=" + msg;
 
-  var smsified = "https://api.smsified.com/v1/smsmessaging/outbound/" + address + message + "/requests";
+  var smsified = "https://api.smsified.com/v1/smsmessaging/outbound/" + smsifiedNumber + "/requests";
   console.log(smsified);
   var tropoObj = {
-    
-  };
+  "deliveryInfoNotification": {
+    "deliveryInfo": {
+      "address": address, 
+      "code": "0", 
+/*       "createdDateTime": "2011-05-12T00:55:25.313Z",  */
+      "deliveryStatus": "DeliveredToNetwork", 
+      "direction": "outbound", 
+      "message": msg, 
+/*       "messageId": "3e5caf2782cb2eb310878b03efec5083",  */
+      "parts": "1", 
+      "senderAddress": smsifiedNumber, 
+/*       "sentDateTime": "2011-05-12T00:55:34.359Z" */
+    }
+  }
+}
 
   console.log(tropo);
   return tropo;

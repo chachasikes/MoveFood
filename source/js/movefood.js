@@ -50,8 +50,9 @@ var dataSampleFoodItem = {
  * Return an error
  */
 
-moveFood.error = function () {
+moveFood.error = function (error) {
   console.log("Error");
+  console.log(error);
 };
 
 
@@ -147,7 +148,7 @@ moveFood.loadData = function() {
     url: "http://www.movefood.krangarajan.com/movefood/index.php/login/logged_in",
     data: "",
     success: function(results) {moveFood.showUser(results);},
-    error: function(result) { moveFood.error() },
+    error: function(result) { moveFood.error(result) },
     dataType: "json"
   });
 }
@@ -162,7 +163,7 @@ moveFood.showUser = function(user) {
           error: function(result) { moveFood.error() },
           dataType: "json"});
       $.ajax({
-          url: "http://www.movefood.krangarajan.com/movefood/index.php/list_items",
+          url: "http://www.movefood.krangarajan.com/movefood/index.php/my_items",
           data: "",
           success: function(results) {moveFood.renderItems(results);},
           error: function(result) { moveFood.error() },
@@ -200,13 +201,15 @@ moveFood.updateUserBlock = function(user) {
     $('#logoutlink').show();
     $('#welcomeuser').show();
     $('#createaccount').hide();
-  } 
+    $('#lists').show();
+  }
   else {
     $('#userdetails').hide();
     $('#loginlink').show();
     $('#logoutlink').hide();
     $('#welcomeuser').hide();
     $('#createaccount').show();
+    $('#lists').hide();
   }
 }
 
@@ -216,7 +219,7 @@ moveFood.updateUserBlock = function(user) {
  * Render a list of food items.
  */
 moveFood.renderItems = function(results) {
-    var items;
+    var items = "";
     for (i in results) {
         items = items + "<li>" + results[i].name + "</li>";
     }
@@ -308,13 +311,11 @@ moveFood.showFoodAjax = function() {
  * Show list of food items.
  */
 moveFood.showList = function(results) {
-console.log(results);
   if(results === undefined) {
    results =  dataSampleFoodItem;
   }
 
   for (i in results) {
-    console.log(results);
     if(results[i].perishable === 0) {
       results[i].perishable_text = "Yes";
     }
@@ -511,6 +512,7 @@ moveFood.textAction = function(result) {
 
 
   console.log(tropo);
+  return tropo;
 */
   return false;
 };

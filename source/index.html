@@ -13,31 +13,35 @@
 <body>
 <div id="container" class="section container_12">
     <div id="header">
-        <div class="logo grid_8 alpha"><h1><a href="index.html">MoveFood</a></h1></div>
-        <div class="grid_2 omega">
-            <a href="#" class="login" onClick="return moveFood.showLogin()">Login</a> |
-            <a href="register.html" class="login">Create Account</a>
+        <div class="logo grid_6 alpha"><h1><a href="index.html">MoveFood</a></h1></div>
+        <div class="grid_6 omega">
+          <ul class="menu">
+            <li><a href="#" class="login" onClick="return moveFood.showLogin()">Login</a></li>
+            <li><a href="register.html" class="login">Create Account</a></li>
+          </ul>
         </div>
-        <div id="content" class="grid_12">
-            <div id="userdetails"  class="grid_12">
+        <div id="content" class="grid_12 alpha">
+            <div id="userdetails"  class="grid_12 alpha">
                 <div class="grid_2"><div class="userimage"><img src="images/user_placeholder.png"/></div></div>
-                <div class="grid_10">
-                    <div id="username">Joe Washel</div>
-                    <div id="userlocation">Georgetown, WA</div>
-                    <div id="userbio">I love delivering goods for those in need.</div>
+                <div class="grid_4">
+                  <div id="username">Joe Washel</div>
+                  <div id="userlocation">Georgetown, WA</div>
+                  <div id="userbio">I love delivering goods for those in need.</div>
                 </div>
             </div>
-            <div id="actions grid_12">
-                <div id="haveaction" class="grid_3 button"><a href="add-item.html">I have</a></div>
-                <div id="helpaction" class="grid_3 button"><a href="food-list.html">I can help</a></div>
-            </div>
+
+                <div id="actions" class="user-buttons grid_12 alpha">
+                  <div id="haveaction" class="grid_3 button"><a href="add-item.html">I have</a></div>
+                  <div id="helpaction" class="grid_3 button"><a href="food-list.html">I can help</a></div>
+                </div>
+                
             <div id="lists">
-                <div id="items" class="grid_6">
+                <div id="items" class="grid_5">
                     <div class="list"><h3>Items I have listed</h3></div>
                     <ul id="itemslist">
                     </ul>
                 </div>
-                <div id="claims" class="grid_6">
+                <div id="claims" class="grid_5">
                     <div class="list"><h3>Items I have claimed</h3></div>
                     <ul id="claimslist">
                     </ul>

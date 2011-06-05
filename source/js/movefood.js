@@ -334,6 +334,7 @@ console.log(results);
             + "<td><div class='text button'>" +  moveFood.textMessage(results[i]) + "</div></td>"
             + "</tr>";
 
+  $('tr fooditem-id-' + results[i].item_id + ' a.send-text').click(moveFood.textAction(results[i]));
 /* moveFood.requireAuthentication             */
     $('#food-list').append(row);
   }
@@ -439,7 +440,7 @@ moveFood.textMessage = function(result) {
   console.log(result);
   
 
-  result.textLink = '<a href="#" onclick="return moveFood.textAction(result)" class="send-text">Text/SMS</a>';
+  result.textLink = '<a href="#" class="send-text">Text/SMS</a>';
   return result.textLink;
 }
 
@@ -467,28 +468,51 @@ moveFood.textAction = function(result) {
   var smsified = "https://api.smsified.com/v1/smsmessaging/outbound/" + smsifiedNumber + "/requests";
   console.log(smsified);
   
+/*
   var smsifiedObj = {
    "resourceReference":{
       "resourceURL":
         smsified + address + message
     }
    };
+*/
+
+/*
+// stringify
+ var data = {
+  "address" : number,
+  "messages" : encodeURIComponent(msg)
+ };
+*/
 
   
-  $.ajax({
-    url: smsified + address + message,
+
+  
+  var msg2 = "this is a message";
+
+
+  var post_data = JSON.stringify({  
+  	'address' : number,  
+  	'message': msg2  
+  });  
+
+  
+    $.ajax({
+    url: 'http://api.smsified.com/v1/smsmessaging/outbound/' + smsifiedNumber + '/requests/',
     dataType: 'json',
-    method: "post",
-/*     data: smsifiedObj, */
+    data: post_data,
+    type: "post",
     success: moveFood.textMessageSent,
     error: moveFood.error,
   });
+  
+  
 /*
 
 
   console.log(tropo);
 */
-  return '#';
+  return false;
 };
 
 moveFood.textMessageSent = function () {

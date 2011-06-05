@@ -224,3 +224,7 @@ margin-left: 0;
 #content ul {
   padding-bottom: 20px;
 } 
+
+#content p{
+  width: 550px;
+}

@@ -284,7 +284,6 @@ moveFood.addItemSubmit = function() {
     error: moveFood.error,
   });
 
-  return false;
 };
 
 moveFood.addItem = function() {

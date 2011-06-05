@@ -462,7 +462,23 @@ moveFood.textAction = function(result) {
 
   var smsified = "https://api.smsified.com/v1/smsmessaging/outbound/" + smsifiedNumber + "/requests";
   console.log(smsified);
-  var tropoObj = {
+  
+  var smsifiedObj1 = {
+   "resourceReference":{
+      "resourceURL":
+        smsified + address + message;
+   }
+}
+  
+    $.ajax({
+    url: smsified + address + message,
+    dataType: 'json',
+    method: "post",
+    success: moveFood.textMessageSent,
+    error: moveFood.error,
+  });
+  
+  var smsifiedObj2 = {
   "deliveryInfoNotification": {
     "deliveryInfo": {
       "address": address, 
@@ -481,4 +497,8 @@ moveFood.textAction = function(result) {
 
   console.log(tropo);
   return tropo;
+};
+
+moveFood.textMessageSent = function () {
+  console.log("text message sent");
 };

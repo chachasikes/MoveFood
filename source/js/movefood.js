@@ -494,7 +494,8 @@ moveFood.textAction = function(result) {
 
   var post_data = JSON.stringify({  
   	'address' : number,  
-  	'message': msg2  
+  	'message': msg2,
+  	'senderAddress': smsifiedNumber
   });  
 
   
@@ -502,7 +503,7 @@ moveFood.textAction = function(result) {
     url: 'https://api.smsified.com/v1/smsmessaging/outbound/' + smsifiedNumber + '/requests',
 /*     ?address=' + number + '&message=' + msg2 */
 /*           https://api.smsified.com/v1/smsmessaging/outbound/{senderAddress}/requests */
-    dataType: 'jsonp',
+    dataType: 'json',
     type: "POST",
     data: post_data,
     contentType: "application/x-www-form-urlencoded;charset=ISO-8859-15",

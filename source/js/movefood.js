@@ -129,7 +129,7 @@ moveFood.showUser = function(user) {
           error: function(result) { moveFood.error() },
           dataType: "json"});
   } else {
-      moveFood.logOut();
+      moveFood.logout();
   }
 }
 

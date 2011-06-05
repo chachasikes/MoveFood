@@ -77,28 +77,30 @@ moveFood.registerResponse = function() {
 };
 
 moveFood.register = function() {
-  $('form#register-form .form-submit').click(function(){
+
     var item = {};
     item.name = $('form#register-form #user_name').val();
     item.password = $('form#register-form #user_password').val();
     item.location = $('form#register-form #user_location').val();
-    item.lat = $('form#register-form #user_location').val();
-    item.lon = $('form#register-form #user_location').val();
+    item.latitude = $('form#register-form #user_latitude').val();
+    item.longitude = $('form#register-form #user_longitude').val();
     item.contact = $('form#register-form #user_contact').val();
-    
-  // Insert values.
-  $.ajax({
-  	url: "http://movefood.krangarajan.com/movefood/index.php/register",
-    dataType: 'json',
-    method: "post",
-    data: item,
-    success: moveFood.registerResponse,
-    error: moveFood.error,
-  });
+
+    console.log(item);
+
+    // Insert values.
+    $.ajax({
+    	url: "http://movefood.krangarajan.com/movefood/index.php/register",
+      dataType: 'json',
+      method: "post",
+      data: item,
+      success: moveFood.registerResponse,
+      error: moveFood.error,
+    });
 
     
     return false;
-  });
+
 };
 
 moveFood.error = function () {

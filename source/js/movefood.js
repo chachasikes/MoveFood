@@ -503,19 +503,13 @@ moveFood.textAction = function(result) {
 /*     ?address=' + number + '&message=' + msg2 */
 /*           https://api.smsified.com/v1/smsmessaging/outbound/{senderAddress}/requests */
     dataType: 'jsonp',
+    type: "POST",
     data: post_data,
-    type: "post",
+    contentType: "application/x-www-form-urlencoded;charset=ISO-8859-15",
     success: moveFood.textMessageSent,
     error: moveFood.error,
   });
-  
-  
-/*
 
-
-  console.log(tropo);
-  return tropo;
-*/
   return false;
 };
 

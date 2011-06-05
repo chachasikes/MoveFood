@@ -14,7 +14,11 @@ $(document).ready(function(){
     item.contact_detail = $('form#add-item-block-form #food_contact_detail').val();
     item.default_contact = $('form#add-item-block-form #food_default_contact:checked').val();
     
-    console.log(item);
+/*
+    $.post('ajax/test.html', function(data) {
+    
+    }
+*/
     
     return false;
   });

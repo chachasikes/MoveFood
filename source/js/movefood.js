@@ -283,7 +283,7 @@ moveFood.addItemSubmit = function() {
     success: moveFood.addItem,
     error: moveFood.error,
   });
-
+  return false;
 };
 
 moveFood.addItem = function() {

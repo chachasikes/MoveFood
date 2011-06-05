@@ -3,21 +3,84 @@
   <head>
     <meta charset="utf-8">
     <title>MoveFood: Add Item</title>
+    <link rel="stylesheet" href="css/fluid_grid.css" type="text/css" />
     <link rel="stylesheet" href="css/style.css" type="text/css" />
     <script type="text/javascript" src="js/jquery-1.5.min.js"></script>
     <script type="text/javascript" src="js/movefood.js"></script>
   </head>
   <body>
-    <div id="container" class="section container_12">
+    <div id="container">
       <div id="header">
         <div id="logo"><h1>MoveFood</h1></div>
-        <div id="page-title"><h1>Add Food Item</h1></div>
+        <div id="page-title"><h2>Add a New Food Item</h2></div>
       </div>
       <div id="content">
-        Content Here
+
+<form action="/callback" method="post" id="add-item-block-form" accept-charset="UTF-8">
+
+  <div class="form-item">
+    <label for="add_item_form_value">Name</label>  
+    <input title="Create a short name for this food" type="text" id="food_name" name="field_name_value" value="" size="15" maxlength="128" />
+  </div>
+  
+  <div class="form-item">
+    <label for="field_description_value">Description </label>  
+    <textarea class="text-full form-textarea" id="food_description" name="field_description_value" cols="60" rows="5"></textarea>
+  </div>
+  
+  <div class="form-item">
+    <label for="field_quantity_value">Quantity</label>  
+    <input title="How many of these are there?" type="text" id="food_quantity" name="field_quantity_value" value="" size="15" maxlength="128" />
+  </div>
+  
+  <div class="form-item">
+    <label for="field_unit_value">Units</label>  
+    <input title="How many of these are there?" type="text" id="food_units" name="field_units_value" value="" size="15" maxlength="128" />
+  </div>
+  
+  <div class="form-item"> 
+    <input type="checkbox" name="field_perishable" value="yes" /> Is this item perishable? 
+  </div>
+  
+  <div class="form-item">
+    <label for="field_expiration_date_value">When does this expire?</label>  
+    <input type="text" placeholder="2011-06-10 00:00:00" id="food_expiration" name="field_expiration_value" value="" size="15" maxlength="128" />
+  </div>
+
+  <div class="form-item">
+    <label for="field_location_decription_value">Location Description </label>  
+    <textarea class="text-full form-textarea" id="food_location_description" name="field_location_description_value" cols="60" rows="5"></textarea>
+  </div>
+  
+  <div class="form-item"> 
+    <input type="checkbox" name="field_perishable" value="yes" /> Use my default location information
+  </div>
+
+  <div class="form-item">
+    <label for="field_notes_value">Notes</label>  
+    <textarea class="text-full form-textarea" id="food_notes" name="field_notes_value" cols="60" rows="5"></textarea>
+  </div>
+  
+  <div class="form-item">
+    <label for="field_contact_detail_value">Best way to contact me about this item</label>  
+    <textarea class="text-full form-textarea" id="food_contact_detail" name="field_contact_detail_value" cols="60" rows="5"></textarea>
+  </div>
+
+  <div class="form-item"> 
+    <input type="checkbox" name="field_perishable" value="yes" /> Use my default contact information
+  </div>
+
+  <div class="form-button">   
+    <input type="submit" class="form-submit" value="Submit" name="op" id="edit-submit">
+  </div>
+</form>
+        
+        
+        
+        
       </div>
       <div id="footer">
-        Footer Here
+
       </div>
   </div>
   </div>

@@ -15,6 +15,8 @@
   padding: 0 10px 5px 0;
 }
 
+
+
 .form-item label {
   font-weight: bold;
 }
@@ -213,3 +215,12 @@ margin-left: 0;
   margin: 0 20px 0 0;
   display: inline;
 }
+
+#content li {
+  list-style-position: inside;
+  padding-bottom: 20px;
+}
+
+#content ul {
+  padding-bottom: 20px;
+} 

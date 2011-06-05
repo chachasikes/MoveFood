@@ -135,6 +135,7 @@ moveFood.hideLogin = function() {
 
 moveFood.showLogin = function() {
     $('#login').show();
+
     return false;
 }
 
@@ -188,7 +189,7 @@ moveFood.showUser = function(user) {
         $.ajax({
             url: "http://www.movefood.krangarajan.com/movefood/index.php/login/get_user_data",
             data: "",
-            success: function(results) {moveFood.renderUserBlock(results);},
+            success: function(results) {moveFood.updateUserBlock(results);},
             error: function(result) { moveFood.error() },
             dataType: "json"});
         $.ajax({
@@ -208,20 +209,33 @@ moveFood.showUser = function(user) {
     }
 }
 
-moveFood.logOut = function() {
-    // ajax logout
-    // hide user specific items
+moveFood.logout = function() {
+    $.ajax({
+            url: "http://www.movefood.krangarajan.com/movefood/index.php/login/logout",
+            data: "",
+            success: function(results) {moveFood.renderClaims(results);},
+            error: function(result) { moveFood.error() },
+            dataType: "json"});
+    moveFood.updateUserBlock();
 }
 
-moveFood.renderUserBlock = function(user) {
+moveFood.updateUserBlock = function(user) {
     if (user != undefined) {
         $('#username').text(user.username);
-        $('#welcomeuser').text("Welcome " + user.username + " | ");
+        $('#welcomeuser').html("<a href='javascript:return false;' class='login'>Welcome " + user.username + "</a> ");
         $('#userlocation').text(user.location_description + ": " + user.latitude + ", " + user.longitude);
         $('#userbio').text(user.description);
         $('#userdetails').show();
         $('#loginlink').hide();
+        $('#logoutlink').show();
         $('#welcomeuser').show();
+        $('#createaccount').hide();
+    } else {
+        $('#userdetails').hide();
+        $('#loginlink').show();
+        $('#logoutlink').hide();
+        $('#welcomeuser').hide();
+        $('#createaccount').show();
     }
 }
 

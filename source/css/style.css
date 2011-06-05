@@ -139,6 +139,10 @@ a:active, a:visited {
     display: none;
 }
 
+#logoutlink {
+    display: none;
+}
+
 .form-item-inline {
   float: left;
   margin: 0 10px 40px 0;

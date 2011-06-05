@@ -93,13 +93,43 @@ moveFood.register = function() {
     method: "post",
     data: item,
     success: moveFood.registerResponse,
-    error: moveFood.error,
+    error: moveFood.error
   });
 
     
     return false;
   });
 };
+
+moveFood.showLogin = function() {
+    $('#login').show();
+    return false;
+}
+
+moveFood.login = function(user) {
+    $.ajax({
+        url: "http://www.movefood.krangarajan.com/movefood/index.php/login",
+        dataType: 'json',
+        method: "post",
+        data: user,
+        success: moveFood.validateLogin(response),
+        error: moveFood.error
+    });
+    return false;
+}
+
+moveFood.validateLogin = function(response) {
+    if (response.valid) {
+    }
+    else {
+        moveFood.failedLogin();
+    }
+}
+
+moveFood.failedLogin = function() {
+    $('#login').show();
+    $('#failedlogin').show();
+}
 
 moveFood.error = function () {
   console.log("Error");

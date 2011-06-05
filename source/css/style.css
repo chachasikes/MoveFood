@@ -34,3 +34,22 @@ border-collapse:collapse;
 table,th, td {
 border: 1px solid black;
 }
+
+#login {
+    z-index:1000;
+    position:absolute;
+    top:5%;
+    left:25%;
+    width:500px;
+    opacity:0.45;
+    -moz-opacity:0.45;
+    filter:alpha(opacity=45);
+    padding-right: 200px;
+    background-color: #FFEE00;
+    display: none;
+}
+
+#failedlogin {
+    background-color: #CC0000;
+    display: none;
+}

@@ -367,9 +367,11 @@ moveFood.showItemLoad = function() {
  * Render a list of a users claims.
  */
 moveFood.renderClaims = function(results) {
+    var items = "";
     for (i in results) {
-        $('#claimslist').append("<li>" + results[i].name + "</li>");
+        items = items + "<li><a href='#'>" + results[i].name + "</a> <a href='#' id='food-item-" + results[i].item_id + "'  class='update-status'>Remove</a></li>"
     }
+    $('#claimslist').html(items);
     $('#claims').show();
 }
 

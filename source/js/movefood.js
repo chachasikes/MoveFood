@@ -1,5 +1,50 @@
 moveFood = {};
 
+
+
+/**
+ * Sample data.
+ */
+var dataSampleUser = {
+  0: 
+    {
+      "username":"ChachTest",
+      "password":"pwd",
+      "userimage":"images/user_placeholder.png",
+      "location": "Street Address",
+      "latitude": "-44.11",
+      "longitude":"123.11",
+      "contact":"555-123-1212",
+      "description": "I want to help distribute food." //rename to details
+  }
+}
+
+var dataSampleFoodItem = {
+  0: 
+    {
+      "name": "Broccoli",
+      "username":"ChachTest",
+      "status" : "claimed",
+      "perishable" : 1,
+      "perishable_text" : "Yes",
+      "expiration" : "2011-08-02 00:00:00",
+      "expiration_short" : "2011-08-02",
+      "tweet" : "tweet message",
+      "password":"pwd",
+      "userimage":"images/user_placeholder.png",
+      "location": "Street Address",
+    /*   "location": "Street Address",  */ // default location
+      "latitude": "-44.11",
+      "longitude":"123.11",
+      "contact":"555-123-1212",
+    /*   "contact":"555-123-1212",   */ //default contact
+      "notes": "This broccoli is growing in my backyard.",
+      "description": "I want to help distribute food." //User description
+    }
+
+}
+
+
 /* GENERAL FUNCTIONS */
 /**
  * Return an error
@@ -251,13 +296,13 @@ moveFood.requireAuthentication = function() {
 /**
  * Load list of food items.
  */
-moveFood.showFoodList = function() {
+moveFood.showFoodAjax = function() {
   $.ajax({
     url: "http://www.movefood.krangarajan.com/movefood/index.php/list_items",
     data: "",
     method: "post",
     success: function(results) {moveFood.showList(results);},
-    error: function(result) {moveFood.showList(dataSampleFoodItem);},
+    error: function(results) {moveFood.showList(dataSampleFoodItem);},
     dataType: "json"
   });
 };
@@ -266,8 +311,12 @@ moveFood.showFoodList = function() {
  * Show list of food items.
  */
 moveFood.showList = function(results) {
+<<<<<<< HEAD
   console.log(results);
 
+=======
+console.log(results);
+>>>>>>> baccb2e45d1bd05da4b7c47ccbdb9d0ef5313092
   if(results === undefined) {
    results =  dataSampleFoodItem;
   }
@@ -327,7 +376,7 @@ moveFood.renderClaims = function(results) {
  */
 moveFood.constructTweet = function(result) {
   var tweet = "";
-  result.tweetLink = "http://localhostblah.com/showItem?id=" + result.item_id;
+  result.tweetLink = "http://www.movefood.krangarajan.com/food-list.html?id=" + result.item_id;
   if(result.name !== undefined) {
     tweet += result.name;
   }
@@ -368,9 +417,11 @@ moveFood.constructTweet = function(result) {
  * Make tweet.
  */
 moveFood.tweetMessage = function(result) {
+  console.log(result);
   moveFood.constructTweet(result);
+
   var maxLength = 140 - (result.tweet.length + 1);
-  console.log(maxLength);
+
   if (result.tweet.length > maxLength) {
     result.tweet = result.tweet.substr(0, (maxLength - 3)) + '...';
   }
@@ -378,41 +429,50 @@ moveFood.tweetMessage = function(result) {
   result.tweetThisLink = 'http://twitter.com/share?url=' + encodeURIComponent(result.tweetLink) + '&text=' + encodeURIComponent(result.tweet);
 
   console.log(result);
-  result.tweetStatus = '<a href="' + result.tweetThisLink +'" target="_blank"'+'>Tweet</a>'
+  result.tweetStatus = '<a href="' + result.tweetThisLink +'" target="_blank"'+'>Tweet</a>';
   return result.tweetStatus;
 }
 
 /**
- * Sample data.
+ * Make text message.
  */
-var dataSampleUser = {
-  "username":"ChachTest",
-  "password":"pwd",
-  "userimage":"images/user_placeholder.png",
-  "location": "Street Address",
-  "latitude": "-44.11",
-  "longitude":"123.11",
-  "contact":"555-123-1212",
-  "description": "I want to help distribute food." //rename to details
+moveFood.textMessage = function(result) {
+   moveFood.constructTweet(result);
+/*
+  var maxLength = 140 - (result.tweet.length + 1);
+  if (result.tweet.length > maxLength) {
+    result.tweet = result.tweet.substr(0, (maxLength - 3)) + '...';
+  }
+*/
+
+  console.log(result);
+  result.textLink = '<a href="' + moveFood.textAction(result) + '"'+' class="send-text">Text/SMS</a>';
+  return result.textLink;
 }
 
-var dataSampleFoodItem = {
-  "name": "Broccoli",
-  "username":"ChachTest",
-  "status" : "claimed",
-  "perishable" : 1,
-  "perishable_text" : "Yes",
-  "expiration" : "2011-08-02 00:00:00",
-  "expiration_short" : "2011-08-02",
-  "tweet" : "tweet message",
-  "password":"pwd",
-  "userimage":"images/user_placeholder.png",
-  "location": "Street Address",
-/*   "location": "Street Address",  */ // default location
-  "latitude": "-44.11",
-  "longitude":"123.11",
-  "contact":"555-123-1212",
-/*   "contact":"555-123-1212",   */ //default contact
-  "notes": "This broccoli is growing in my backyard.",
-  "description": "I want to help distribute food." //User description
-}
+moveFood.textAction = function(result) {
+  var token = "02e46a20ee5cf243a264d9883ad078d01ee70b878ab1b110b63aa2e5aeacf02c09b702bb898dc604bc41ed02";
+  var number = "4154259325";
+  var name = "Chach+Sikes";
+  var msg = result.tweet;
+  console.log(result);
+  var tropo = "https://api.tropo.com/1.0/sessions";
+  tropo += "?action=create";
+  tropo += "&token=" + token;
+  tropo += "&numberToDial=" + number;
+  tropo += "&customerName=" + name;
+  tropo += "&msg=" + encodeURIComponent(msg);
+
+
+  var address = "address=" + number;
+  var message = "&message=" + msg;
+
+  var smsified = "https://api.smsified.com/v1/smsmessaging/outbound/" + address + message + "/requests";
+  console.log(smsified);
+  var tropoObj = {
+    
+  };
+
+  console.log(tropo);
+  return tropo;
+};

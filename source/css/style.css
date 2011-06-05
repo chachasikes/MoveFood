@@ -1,8 +1,13 @@
 .form-item, .item {
   width: 30%;
-  padding: 20px 0;
+  padding: 20px 0 20px 0;
+  display: block;
 }
 
+.form-item .checkbox {
+  margin: -5px 10px 0px 0;
+  line-height: 16px;
+}
 .form-item label {
   display: block;
   vertical-align: top;
@@ -117,10 +122,9 @@ a:active, a:visited {
     font-size: 150%;
 }
 
-.location-geo {
+.form-item-inline {
   float: left;
-  margin: 0 10px 10px 0;
-  width: 30%;
+  margin: 0 10px 40px 0;
 }
 
 .help {

@@ -7,53 +7,65 @@
     <link rel="stylesheet" href="css/style.css" type="text/css" />
     <script type="text/javascript" src="js/jquery-1.5.min.js"></script>
     <script type="text/javascript" src="js/movefood.js"></script>
-    <script type="text/javascript">
-
-        $(document).ready(function(){
-            $.ajax({
-                url: "http://www.movefood.krangarajan.com/movefood/index.php/list_claims",
-                data: "",
-                method: "post",
-                success: function(results) {moveFood.showList(results);},
-                error: function(result) { moveFood.error() },
-                dataType: "json"});
-        });
-    </script>
+    <script type="text/javascript" src="js/index.js"></script>
 </head>
 <body>
 <div id="container" class="section container_12">
     <div id="header">
-        <div class="logo"><h1>MoveFood</h1></div>
-    </div>
-    <div id="content">
-        <div id="userdetails">
-            <div class="grid_1"><img id="userimage" src="#"/></div>
-            <div class="grid_11">
-                <div id="username">Joe Washel</div>
-                <div id="userlocation">Georgetown, WA</div>
-                <div id="userbio">I love delivering goods for those in need.</div>
+        <div class="logo grid_8 alpha"><h1>MoveFood</h1></div>
+        <div class="grid_2 omega"><a href="#" onClick="return moveFood.showLogin()">login</a></div>
+        <div id="content" class="grid_12">
+            <div id="userdetails">
+                <div class="grid_1"><img id="userimage" src="#"/></div>
+                <div class="grid_11">
+                    <div id="username">Joe Washel</div>
+                    <div id="userlocation">Georgetown, WA</div>
+                    <div id="userbio">I love delivering goods for those in need.</div>
+                </div>
+            </div>
+            <div id="actions">
+                <div id="haveaction" class="grid_6"><a href="add-item.html">I have</a></div>
+                <div id="helpaction" class="grid_6"><a href="food-list.html">I can help</a></div>
+            </div>
+            <div id="lists">
+                <div id="items" class="grid_6">
+                    <div>Items I have listed</div>
+                    <ul id="itemslist">
+                    </ul>
+                </div>
+                <div id="claims" class="grid_6">
+                    <div>Items I have claimed</div>
+                    <ul id="claimslist">
+                    </ul>
+                </div>
             </div>
         </div>
-        <div id="actions">
-            <div id="haveaction" class="grid_6"><a href="add-item.html">I have</a></div>
-            <div id="helpaction" class="grid_6"><a href="food-list.html">I can help</a></div>
-        </div>
-        <div id="lists">
-            <div id="items" class="grid_6">
-                <div>Items I have listed</div>
-                <ul id="itemslist">
-                </ul>
-            </div>
-            <div id="claims" class="grid_6">
-                <div>Items I have claimed</div>
-                <ul id="claimslist">
-                </ul>
-            </div>
-        </div>
-    </div>
-    <div id="footer">
+        <div id="footer">
 
+        </div>
     </div>
 </div>
+<div id="login">
+    <div id="failedlogin">
+        Username or password is invalid.
+    </div>
+
+    <form id="login-form" accept-charset="UTF-8">
+        <div class="form-item">
+            <label for="field_name_value">Name</label>
+            <input type="text" id="user_name" name="field_name_value" value="" size="25" maxlength="128" />
+        </div>
+
+        <div class="form-item">
+            <label for="field_password_value">Password</label>
+            <input type="password" id="user_password" name="field_password_value" value="" size="25" maxlength="128" />
+            <br />(Note: this site is totally insecure.)
+        </div>
+
+        <div class="form-button">
+            <input type="submit" class="form-submit" value="Submit" name="op" id="edit-submit">
+        </div>
+
+    </form>
 </div>
 </html>

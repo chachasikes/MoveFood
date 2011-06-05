@@ -4,6 +4,7 @@ moveFood = {};
 /**
  * Return an error
  */
+
 moveFood.error = function () {
   console.log("Error");
 };
@@ -44,7 +45,7 @@ moveFood.register = function() {
       dataType: 'json',
       data: dataItem,
       success: moveFood.registerResponse,
-      error: moveFood.error,
+      error: moveFood.error
     });
 
     return false;
@@ -57,7 +58,7 @@ moveFood.hideLogin = function() {
 
 moveFood.showLogin = function() {
     $('#login').show();
-
+    $('#user_name').focus();
     return false;
 }
 
@@ -232,6 +233,15 @@ moveFood.addItem = function() {
   console.log("added item");
 };
 
+moveFood.requireAuthentication = function() {
+    user = moveFood.getLoggedInUser(function (results) {return results;});
+    if (moveFood.isLoggedIn(user)) {
+        return true;
+    } else  {
+        moveFood.showLogin();
+        return false;
+    }
+}
 
 /**
  * Load list of food items.

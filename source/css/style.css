@@ -172,6 +172,15 @@ a.active {
   width:150px;
 }
 
+#lists {
+    display: none;
+}
+
+#lists .item {
+  background-color: #F5F9AF;
+  padding: 20px;
+}
+
 ul.list li {
   margin: 0 0 10px 0;
   padding: 0;
